@@ -1,0 +1,93 @@
+title: Common Payload and C2 URI Paths
+id: 34800aac-8970-47cd-abd9-524dfee7d6c7
+description: The rule detectes commonly used payload and C2 URI paths lacking properties of normal web surf
+status: experimental
+author: NTT Security - Axel Olsson
+references:
+  - https://go.recordedfuture.com/hubfs/reports/cta-2023-0727-1.pdf # Bluebravo
+  - https://www.welivesecurity.com/2022/09/30/amazon-themed-campaigns-lazarus-netherlands-belgium/ # Lazarus
+  - https://labs.withsecure.com/content/dam/labs/docs/WithSecure-Lazarus-No-Pineapple-Threat-Intelligence-Report-2023.pdf # Lazarus
+  - https://asec.ahnlab.com/ko/53832/ # Lazarus
+  - https://medium.com/checkmarx-security/lazarus-group-launches-first-open-source-supply-chain-attacks-targeting-crypto-sector-cabc626e404e # Lazarus
+  - https://blog.eclecticiq.com/german-embassy-lure-likely-part-of-campaign-against-nato-aligned-ministries-of-foreign-affairs #apt29
+  - https://blog.talosintelligence.com/lazarus-quiterat/ #Lazarus
+  - https://www.ncsc.gov.uk/static-assets/documents/malware-analysis-reports/infamous-chisel/NCSC-MAR-Infamous-Chisel.pdf # sandworm
+  - https://asec.ahnlab.com/ko/56654/ # Lazarus kind off
+  - https://www.microsoft.com/en-us/security/blog/2023/10/18/multiple-north-korean-threat-actors-exploiting-the-teamcity-cve-2023-42793-vulnerability/ # Lazarus-ish
+  - https://cert.gov.ua/article/5213167 # APT28, Turla
+  - https://www.microsoft.com/en-us/security/blog/2023/11/22/diamond-sleet-supply-chain-compromise-distributes-a-modified-cyberlink-installer/ #Lazarus
+  - https://www.mandiant.com/resources/blog/unc4990-evolution-usb-malware # unc4990 updater.php
+date: 2023/08/01
+modified: 2024/02/01
+logsource:
+    category: proxy
+detection:
+    selection_1_bluebravo:
+      c-uri|endswith:
+        - '/form.php'
+        - '/submit.php'
+        - '/dashboard.php'
+        - '/information.php'
+        - '/contact.php'
+    selection_2_lazarus:
+      c-uri|endswith:
+        - '/feedback.php'
+        - '/maps.php'
+        - '/img.asp'
+        - '/brow.php'
+        - '/edit.asp'
+        - '/bottom.asp'
+        - '/logout.asp'
+        - '/cache.php'
+        - '/checkupdate.php'
+        - '/logs.php'
+        - '/tmp/log.php'
+        - '/tmp/logs.php'
+        - '/com.php'
+        - '/about.php'
+        - '/addin.php'
+        - '/wids.php'
+    selection_3_apt29:
+      c-uri|endswith:
+        - '/idx.php'
+    selection_4_sandworm:
+      cs-method: 'POST'
+      c-uri|endswith:
+        - '/server.php'
+    selection_5_apt28:
+      c-uri:
+        - '/owa/scripts/logon.aspx'
+        - '/outlook/api/logoff.aspx'
+        - '/MICROSOFT.EXCHANGE.MAILBOXREPLICATIONSERVICE.PROXYSERVICE/RPCWITHCERT/SYNC'
+    selection_6_unc4990:
+      c-uri|endswith: '/updater.php'
+    empty_referer:
+      cs-referer: ""
+    internal_src:
+      - vendor: Zscaler
+      - src_ip|cidr: # To reduce noise from scanners etc
+            - "10.0.0.0/8"
+            - "192.168.0.0/16"
+            - "172.16.0.0/12"
+    filter:
+      - cs-host:
+        - 'www.facebook.com'
+        - 'update.utorrent.com'
+        - 'hits.informer.com'
+        - 'www.advanced-ip-scanner.com' # interesting but there's a separate rule for Advanced IP scanner
+        - 'www.4t-niaggara.com' # 4t Tray Minimizer PUA
+      - c-uri-query|startswith:
+        - 'rqst=track' # /server.php
+      - dest_ip|cidr: # To reduce noise from scanners etc
+            - "10.0.0.0/8"
+            - "192.168.0.0/16"
+            - "172.16.0.0/12"
+      - cs-method: "" # By not allowing empty http method we ensure that referer is set by the product in most cases
+      - c-uri|contains: "/-/post/https"
+    condition: 1 of selection* and empty_referer and internal_src and not filter
+falsepositives:
+    - A certain amount of False-Positives exists with legitimate but odd traffic, take these alerts as an indicator and investigate the traffic and the surrounding events further for malicious indicators.
+level: medium
+tags:
+    - attack.initial_access
+    - attack.command_and_control

@@ -1,0 +1,105 @@
+title: API Services Abused for C2 Communication
+id: 6e9e83f8-202a-4792-9f2d-380f899b3105
+description: Legitimate API services sometimes abused for C2 communication. Correlate in events and look for cyclic traffic.
+status: stable
+author: NTT Security - Patrik Olson, Axel Olsson
+date: 2023/08/17
+modified: 2024/02/23
+references:
+  - https://blog.eclecticiq.com/german-embassy-lure-likely-part-of-campaign-against-nato-aligned-ministries-of-foreign-affairs # Zulip
+  - https://blog.cluster25.duskrise.com/2022/09/23/in-the-footsteps-of-the-fancy-bear-powerpoint-graphite/ # Microsoft Graph API
+  - https://github.com/boku7/azureOutlookC2/blob/65f58a727a1d7b34b68d2ef299a9832cb9946072/Beacon/azureOutlookC2_DLL.c#L761 # Microsoft Graph API
+  - https://github.com/mttaggart/OffensiveNotion/blob/main/agent/src/notion.rs # Notion
+  - https://www.ctfiot.com/38228.html # Trello
+  - https://github.com/password-reset/TrelloC2/blob/77326bb3b0e81a61d99d7970ba5972d9c1cc3ed7/agent.py#L29-L53 # Trello
+  - https://cert.gov.ua/article/5702579 # Mockbin, Mocky and webhook
+  - https://www.rnbo.gov.ua/files/2023_YEAR/CYBERCENTER/Gamaredon_activity.pdf # Telegraph
+  - https://ipfyx.fr/post/visual-studio-code-tunnel/ # Vscode tunnel
+  - https://blog.sekoia.io/apt28-leverages-multiple-phishing-techniques-to-target-ukrainian-civil-society/ # APT28 Pipedream
+logsource:
+    category: proxy
+detection:
+    service_pipedream:
+      cs-method:
+        - 'POST'
+        - 'PUT'
+      cs-host: 'api.pipedream.com'
+      c-uri|startswith:
+        - '/v1/'
+    service_google_chat:
+      cs-host:
+        - chat.googleapis.com
+        - googleapis.com
+      c-uri|contains:
+        - '/upload/drive' # googleapis
+        - '/attachments:upload' # chat.googleapis
+        - '/messages'
+      cs-referer: ''
+    service_slack:
+      cs-method: 'POST'
+      cs-host: 'slack.com'
+      c-uri|startswith:
+        - '/api/chat'
+        - '/api/channels'
+        - '/api/conversations'
+    service_discord:
+      cs-method: 'POST'
+      cs-host: 'discord.com'
+      c-uri|startswith: '/api/webhooks'
+    service_telegram:
+      cs-method: 'POST'
+      cs-host: 'api.telegram.org'
+      c-uri|startswith: '/bot'
+    service_zulip_chat:
+      cs-host|endswith: 'zulipchat.com'
+      c-uri: '/api/v1/users/me/subscriptions'
+    service_microsoft_graph_api_outlook_drafts:
+      cs-method: 'POST'
+      cs-host: 'graph.microsoft.com'
+      c-uri|startswith: '/v1.0/me/messages'
+    service_microsoft_graph_api_onedrive:
+      cs-host: 'graph.microsoft.com'
+      c-uri|startswith: '/v1.0/drive/root:'
+      c-uri|endswith: ':/content'
+    service_microsoft_onedrive:
+      cs-host: 'api.onedrive.com'
+      c-uri|startswith: '/v1.0/drives/'
+      c-uri|endswith: '/root/content'
+    service_notion:
+      cs-method: 'PATCH'
+      cs-host: 'api.notion.com'
+      c-uri|contains: '/blocks/'
+    service_trello:
+      cs-method:
+        - 'POST'
+        - 'PUT'
+      cs-host|endswith: 'trello.com'
+      c-uri|startswith: '/1/cards'
+    service_mockbin:
+      cs-host: 'mockbin.org'
+      c-uri|startswith: '/bin/'
+    service_webhook:
+      cs-host|endswith: 'webhook.site'
+      c-uri|re: \/[-\w]{36}
+    service_mocky:
+      cs-host: 'run.mocky.io'
+      c-uri|startswith: '/v'
+    service_telegraph:
+      cs-host: 'telegra.ph'
+      cs-referer: ""
+      c-uri: '\/.{5,}'
+    service_vscode_tunnels:
+      cs-host|endswith:
+        - '.devtunnels.ms'
+    filter:
+      cs-referer|contains:
+        - 'onedrive.com'
+        - 'outlook.com'
+        - 'trello.com'
+        - 'slack.com'
+    condition: 1 of service_* and not filter
+falsepositives:
+    - Legitimate API usage
+level: medium
+tags:
+    - attack.command_and_control

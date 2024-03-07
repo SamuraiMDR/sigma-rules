@@ -1,0 +1,22 @@
+title: Darkgate
+id: 325202bc-69b8-11ee-8c99-0242ac120002
+description: Detects Darkgate downloading its payload
+status: test
+author: NTT Security - Amata Anantaprayoon
+date: 2023/10/13
+modified: 2023/10/13
+references:
+  - https://malpedia.caad.fkie.fraunhofer.de/details/win.darkgate
+logsource:
+    category: proxy
+detection:
+    selection:
+      dest_port: 2351
+      cs-method: 'GET'
+      c-uri|startswith: '/msi'
+    condition: selection
+falsepositives:
+  - Highly unlikely
+level: high
+tags:
+  - attack.execution

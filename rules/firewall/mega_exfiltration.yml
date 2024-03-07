@@ -1,0 +1,55 @@
+title: MEGA Exfiltration
+id: af71437b-430e-4aad-bbf8-b787c426dc7d
+description: Large upload towards MEGA, may indicate exfiltration of data
+references:
+  - https://arista.my.site.com/AristaCommunity/s/article/Forensic-Investigation-of-the-MEGAcmd-Client#Comm_Kna_ka02I000000brf8QAA_92
+status: stable
+author: NTT Security - Patrik Olson
+date: 2024/02/16
+modified: 2024/03/04
+logsource:
+  category: firewall
+detection:
+  selection_mega:
+    - dest_ip:
+      - "2a0b:e40:1:*"
+      - "2a0b:e41:1:*"
+      - "2a0b:e42:1:*"
+      - "2a0b:e43:1:*"
+      - "2a0b:e44:1:*"
+      - "2a0b:e45:1:*"
+      - "2a09:a380:*"
+      - "31.216.145.*"
+      - "31.216.148.*"
+      - "69.30.89.*"
+      - "89.44.168.*"
+      - "94.24.36.*"
+      - "94.24.37.*"
+      - "103.99.35.*"
+      - "162.208.16.*"
+      - "185.206.24.*"
+      - "185.206.25.*"
+      - "185.206.26.*"
+      - "185.206.27.*"
+      - "2001:67c:1998:*"
+      - "2001:678:25c:*"
+      - "2001:df1:e7c0:*"
+      - "66.181.163.241"
+      - "122.56.56.205"
+      - "122.56.56.207"
+      - "2403:9800:c020::13"
+      - "2403:9800:c020::14"
+      - "2405:5700:1:381::4"
+    - dest_host|endswith: "userstorage.mega.co.nz"
+    - app_name:
+      - "Mega" # Fortinet, Cisco, Zscaler
+      - "mega-base" # Palo Alto
+  selection_large_upload:
+    bytes_out|gt: 10000000 # 10MB
+  condition: all of selection_*
+falsepositives:
+  - Non-sensitive file sharing
+level: high
+tags:
+  - attack.exfiltration
+  - attack.t1567

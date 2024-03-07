@@ -1,0 +1,40 @@
+title: Member Added to Privileged Domain Group
+id: 6e350350-f040-4f3f-bbe5-35a3a8c00f6b
+description: Could indicate privilege escalation or persistence. Look for suspicious surrounding
+  activity or odd account name.
+status: stable
+author: NTT Security - Nils Hult
+date: 2024/02/14
+modified: 2024/02/14
+logsource:
+  category: windows
+detection:
+  selection:
+    EventID: 4728
+    GroupName:
+      # https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory#protected-groups
+      - "Account Operators"
+      - "Administrator"
+      - "Administrators"
+      - "Backup Operators"
+      - "Domain Admins"
+      - "Domain Controllers"
+      - "Enterprise Admins"
+      - "Krbtgt"
+      - "Print Operators"
+      - "Read-only Domain Controllers"
+      - "Replicator"
+      - "Schema Admins"
+      - "Server Operators"
+  condition: selection
+falsepositives:
+- Legitimate administrative activity
+level: medium
+fields:
+  - AccountName
+  - GroupName
+  - TargetDomainName
+  - SubjectUserName
+tags:
+  - attack.persistence
+  - attack.privilege_escalation

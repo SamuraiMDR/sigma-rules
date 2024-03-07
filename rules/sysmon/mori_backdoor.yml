@@ -1,0 +1,21 @@
+title: Mori backdoor
+id: 8022a532-abf0-4f60-a5cf-47525772b689
+description: Mori backdoor
+status: stable
+author: NTT Security - Robin Hellsten
+date: 2022/01/13
+references:
+    - https://www.cybercom.mil/Media/News/Article/2897570/iranian-intel-cyber-suite-of-malware-uses-open-source-tools/
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    regKey:
+        TargetObject:
+          - 'HKLM\SOFTWARE\NFC'
+    condition: regKey
+falsepositives:
+    - No known cases of false positives
+level: medium
+tags:
+  - attack.persistence

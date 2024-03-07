@@ -1,0 +1,28 @@
+title: Gootloader C2
+id: a8926206-42c8-4e85-a81a-48aba3c4752e
+description: Gootloader leverages compromised WordPress sites for C2 redirection
+status: test
+author: NTT Security - Patrik Olson
+date: 2023/11/30
+modified: 2023/11/30
+references:
+  - https://securityintelligence.com/x-force/gootbot-gootloaders-new-approach-to-post-exploitation/
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-method: 'GET'
+    c-uri: '/xmlrpc.php'
+  internal_src:
+    - src_ip|cidr:
+      - '10.0.0.0/8'
+      - '192.168.0.0/16'
+      - '172.16.0.0/12'
+    - vendor:
+      - 'Zscaler'
+  condition: selection and internal_src
+falsepositives:
+  - Unknown; real XMLRPC traffic should always use POST requests
+level: medium
+tags:
+  - attack.command_and_control

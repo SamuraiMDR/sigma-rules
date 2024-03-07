@@ -1,0 +1,22 @@
+title: Potential Splashtop Interactive Session
+id: 1773d6b8-2854-417a-a0be-06037ef47a43
+description: Potential Splashtop Interactive Session based on high byte count
+status: experimental
+author: NTT Security - Axel Olsson, Amata Anantaprayoon, Patrik Olson
+references:
+  - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-075a
+date: 2023/11/27
+modified: 2023/11/27
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|endswith: "relay.splashtop.com"
+    bytes_out|ge: 10000
+  condition: selection
+falsepositives:
+  - Non-interactive Splashtop related traffic, it is only an educated guess that interactive traffic has a high bytes count due to to it happening so rarely.
+  - Benign Splashtop usage if the tool is normally used by the organisation
+level: medium
+tags:
+  - attack.command_and_control

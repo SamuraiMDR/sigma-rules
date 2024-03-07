@@ -1,0 +1,23 @@
+title: BatLoader C2 traffic
+id: 354d2c39-b961-42df-842a-df510e525d66
+description: Likely BatLoader C2 traffic
+status: stable
+author: NTT Security - Axel Olsson
+references:
+  - https://www.esentire.com/blog/batloader-continues-signed-msix-app-package-abuse
+  - 0bbc90d442d216669fd9a511b319f91adfccad27110667b2dc22f914bdda559d
+  - 56b5e3a9f1a4706428a32fc7480e4b480ef46b9307d85639cba1c0acf615ad51
+  - 5ba6fbbfebbc31b41ecca7e2669b1dda41839a571b672d6ac430b291974a03a5
+date: 2023/08/15
+logsource:
+    category: proxy
+detection:
+    selection_uri_query:
+      - c-uri-query: 'sc-status=install'
+      - c-uri-query|startswith: 'sc-status=start&av='
+    selection_uri_path:
+      c-uri: '/'
+    condition: selection_uri_query and selection_uri_path
+falsepositives:
+    - Unlikely, but could be legitimate URLs with same path
+level: medium

@@ -1,0 +1,31 @@
+title: Facebook CDN suspicious attachment download
+id: bde8d06b-3fd5-4022-9c13-95f0af23350a
+description: Facebook CDN has been misused to host malicious rar and zip archives, if bytes_in > 1000 bytes its  likely to be a rar or zip archive download.
+status: experimental
+author: NTT Security - Patrik Olson, Axel Olsson
+date: 2024/01/18
+modified: 2024/01/19
+references:
+  - https://labs.guard.io/mrtonyscam-botnet-of-facebook-users-launch-high-intent-messenger-phishing-attack-on-business-3182cfb12f4d
+  - https://cyble.com/blog/new-editbot-stealer-spreads-via-social-media-messages/
+logsource:
+  category: proxy
+detection:
+  selection:
+    url|startswith: 'https://cdn.fbsbx.com/v/'
+    c-uri|endswith:
+      - '.zip'
+      - '.rar'
+    sc-status: '200'
+  filter:
+    - cs-referer: ''
+    - cs-referer|contains:
+      - 'facebook.com'
+      - 'zoomsphere.com'
+  condition: selection and not filter
+falsepositives:
+  - Legitimate archive downloads
+  - Look at the filename and decide if it appears suspicious. Similar files can often be found by searching virustotal like this "name:<filename>"
+level: medium
+tags:
+  - attack.initial_access

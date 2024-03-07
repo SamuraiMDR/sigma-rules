@@ -1,0 +1,18 @@
+title: Hancitor C2 traffic
+id: e2bddad8-cb58-4569-ba6f-43aea28ae272
+description: HTTP POST Traffic towards .../forum.php commonly used by Hancitor
+status: stable
+author: NTT Security - Axel Olsson
+date: 2022/08/17
+logsource:
+    category: proxy
+detection:
+    selection:
+      cs-method: 'POST'
+      url|endswith: '/forum.php'
+    condition: selection
+falsepositives:
+    - Legitimate POST requests towards an URL path of .../forum.php
+level: medium
+tags:
+    - attack.command_and_control

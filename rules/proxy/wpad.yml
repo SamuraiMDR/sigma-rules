@@ -1,0 +1,45 @@
+title: Web Proxy Auto Discovery
+id: fd8657b5-ebcb-4e23-a383-3febd5bc3965
+description: >-
+  The Web Proxy Auto Discovery (WPAD) protocol attempts to auto-discover proxy settings
+  and is used by e.g. web browsers to make it easier to get a working Internet connection.
+  WPAD uses either the computer's domain name or DNS suffix (configured in Windows) or the
+  domain name found in the DHCP lease (configured in the router/DHCP server) to look for a
+  proxy configuration file 'wpad.dat' which is the same as a PAC file. If the host or router
+  is configured with a domain that is not owned by the user/customer, then the owner of that
+  domain can serve a malicious PAC file and intercept all HTTP traffic from the host (including
+  HTTPS traffic if an HTTP downgrade attack is possible). Try to verify that the domain is
+  registered and not parked, and examine the contents of the file if it exists.
+status: stable
+author: NTT Security - Axel Olsson, Patrik Olson
+date: 2023/08/29
+modified: 2023/11/29
+references:
+  - https://en.wikipedia.org/wiki/Web_Proxy_Auto-Discovery_Protocol
+  - https://www.sentinelone.com/blog/in-the-wild-wpad-attack-how-threat-actors-abused-flawed-protocol-for-years/
+logsource:
+  category: proxy
+detection:
+  wpad:
+    c-useragent: "WinHttp-Autoproxy-Service/5.1"
+    c-uri: "/wpad.dat"
+    cs-host|startswith: "wpad"
+  internal_src:
+    - vendor: Zscaler
+    - src_ip: ''
+    - src_ip|cidr:
+      - '10.0.0.0/8'
+      - '192.168.0.0/16'
+      - '172.16.0.0/12'
+  filter:
+    - cs-host:
+      - 'wpad'
+    - cs-host|endswith:
+      - '.home'
+      - '.localdomain'
+  condition: wpad and internal_src and not filter
+falsepositives:
+  - Benign domains, create filters for customer-owned domains
+level: low
+tags:
+  - attack.collection

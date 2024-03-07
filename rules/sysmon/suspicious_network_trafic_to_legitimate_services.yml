@@ -1,0 +1,35 @@
+title: Network traffic to services abused for C2 communication
+id: ab724af0-630c-4f00-b18a-f12bc582deae
+description: Network traffic to services abused for C2 communication from odd paths
+status: stable
+author: NTT Security - Axel Olsson
+date: 2023/03/16
+reference:
+  - https://mrtiepolo.medium.com/sophisticated-apt29-campaign-abuses-notion-api-to-target-the-european-commission-200188059f58
+  - https://ti.qianxin.com/blog/articles/analysis-of-apt29%27s-attack-activities-against-italy/
+  - https://unit42.paloaltonetworks.com/cloaked-ursa-online-storage-services-campaigns/
+  - https://www.microsoft.com/en-us/security/blog/2020/09/24/gadolinium-detecting-empires-cloud/
+tags:
+  - attack.command_and_control
+logsource:
+    product: windows
+    category: network_connection
+detection:
+    selection:
+      DestinationHostname|endswith:
+        - 'api.notion.com'
+        - 'dl.dropboxusercontent.com'
+        - 'dropbox.com'
+        - 'githubusercontent.com'
+        - 'files.slack.com'
+        - 'slack.com'
+        - 'drive.google.com'
+        - 'graph.microsoft.com'
+      Image:
+        - "*\\appdata\\*"
+        - "*\\rundll32*"
+        - "*\\rundll32.exe*"
+    condition: selection
+falsepositives:
+    - Legitimate software using legitimate APIs
+level: medium

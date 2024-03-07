@@ -1,0 +1,26 @@
+title: Suspicious POST Request Towards Wordpress Site
+id: 22e38465-8ef1-4058-964c-11f921653674
+description: Detects abnormal POST requests towards Wordpress websites without cs-referer set, common characteristics for malware using compromised Wordpress sites for hosting C2.
+status: stable
+author: NTT Security - Axel Olsson
+date: 2023/06/09
+references:
+    - https://securelist.com/goldenjackal-apt-group/109677/
+logsource:
+    category: proxy
+detection:
+    selection:
+        c-uri|startswith: '/wp-'
+        c-uri|endswith: '.php'
+        cs-method: "POST"
+        cs-referer: ""
+    filter:
+        - c-uri|startswith: '/wp-admin'
+        - c-uri:
+            - '/wp-content/plugins/matomo/app/matomo.php'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate scripts running on Wordpress sites.
+level: medium
+tags:
+    - attack.command_and_control

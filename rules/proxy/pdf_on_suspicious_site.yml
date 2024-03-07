@@ -1,0 +1,25 @@
+title: PDF Hosted on Suspicious Site
+id: 767a5ac9-e137-40b8-b521-9027e45dffa9
+description: Phishing PDFs have been known to be hosted on these sites
+status: experimental
+author: NTT Security - Patrik Olson, Leandro Ferreira
+date: 2023/12/05
+modified: 2024/01/30
+references:
+  - https://img1.wsimg[.]com/blobby/go/cdd4fda3-76f8-49d7-b169-5b2ae7b3e6b1/downloads/pekotuxaxutip.pdf # Fake captcha links to phish
+logsource:
+  category: proxy
+detection:
+  selection_host:
+    cs-host|endswith:
+      - ".wsimg.com" # GoDaddy CDN
+      - ".imimg.com" # Abused by phishing sites
+  selection_extension:
+    c-uri|endswith:
+    - .pdf
+  condition: all of selection_*
+falsepositives:
+  - Legitimate PDFs hosted on GoDaddy sites
+level: medium
+tags:
+  - attack.initial_access

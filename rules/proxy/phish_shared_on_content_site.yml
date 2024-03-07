@@ -1,0 +1,21 @@
+title: Phishing Lure Shared on Content Site
+id: 827dc1a9-9305-4c7b-8443-2ad40af0a3a4
+description: Some actors share links to their phishing site on content sharing sites
+status: stable
+references:
+  - 'https://urlscan.io/result/3e8ac28c-c0ab-470a-ac1a-e5c9ded2631d/'
+  - 'https://urlscan.io/search/#page.domain%3Aview.genial.ly%20page.url%3A%2F.*-proposal%2F'
+author: NTT Security - Ramine Etow, Patrik Olson
+date: 2023/09/13
+logsource:
+  category: proxy
+detection:
+  selection_genially:
+    cs-host: view.genial.ly
+    c-uri|endswith: '-proposal'
+  condition: 1 of selection*
+falsepositives:
+  - Benign content with similar page titles, visit the page to verify
+level: medium
+tags:
+  - attack.initial_access

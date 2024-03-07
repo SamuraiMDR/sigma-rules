@@ -1,0 +1,25 @@
+title: Cisco IOS XE Backdoor CVE-2023-20198
+id: 6adf34c1-750b-4024-8737-896ad08f50b2
+description: Actors have exploited CVE-2023-20198 to deploy a backdoor in the Cisco IOS XE web interface
+status: stable
+author: NTT Security - Patrik Olson
+date: 2023/10/18
+references:
+  - https://blog.talosintelligence.com/active-exploitation-of-cisco-ios-xe-software/
+  - https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-iosxe-webui-privesc-j22SaA4z
+  - https://twitter.com/leak_ix/sc-status/1714342183141028307
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-method: "POST"
+    c-uri: "/webui/logoutconfirm.html"
+    c-uri-query|startswith: 'logon_hash='
+  filter:
+    c-uri-query: "logon_hash=1"
+  condition: selection and not filter
+falsepositives:
+  - Request '/webui/logoutconfirm.html?logon_hash=1' and see if the response body is a hex string. If not, it's likely a false positive
+level: high
+tags:
+  - attack.initial_access

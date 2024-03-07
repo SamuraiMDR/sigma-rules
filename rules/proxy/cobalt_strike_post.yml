@@ -1,0 +1,67 @@
+title: Common POST URI Combos used by CobaltStrike during C2 communication
+id: b923f7d6-ac89-4a50-a71a-900fb846b4aa8
+description: Detects common URI combos seen used by CobaltStrike during http POST requests for C2 communication 
+status: stable
+author: NTT Security - Axel Olsson
+date: 2021/10/20
+modified: 2023/08/28
+references:
+    - None
+logsource:
+    category: proxy
+detection:
+    selection1:
+        url|endswith:
+            - '/s/ref=nb_sb_noss_1/167-3294888-0262949/field-keywords=books'
+    selection2:
+        c-uri:
+          - '/api/getit'
+          - '/fwlink'
+          - '/g.pixel'
+          - '/dot.gif'
+          - '/updates.rss'
+          - '/__utm.gif'
+          - '/___utm.gif'
+          - '/en_US/all.js'
+          - '/dpixel'
+          - '/ga.js'
+          - '/visit.js'
+          - '/IE9CompatViewList.xml'
+          - '/api/3'
+          - '/api/4'
+          - '/api/y'
+          - '/api/postit'
+          - '/api/getit'
+          - '/mail/u/0/'
+          - '/OWA/'
+          - '/email/'
+          - '/radio/xmlrpc/v35'
+          - '/tab_home_active'
+          - '/N4215/adj/amzn.us.sr.aps'
+          - '/oscp/a/'
+    selection3:
+      c-uri|startswith:
+        - '/c/msdownload/update/others/'
+        - '/safebrowsing/rd/'
+    selection4:
+      c-uri|startswith:
+        - '/bootstrap-'
+        - '/jquery-'
+      c-uri|endswith:
+        - '.js'
+    post:
+      cs-method: 'POST'
+    filter:
+      cs-host:
+        - 'mail.google.com'
+        - 'mail.google.com.mcas.ms' 
+        - 'analytics.apps.seabroadnet.com' # Weird tracking URL not being CS https://analytics.apps.seabroadnet[.]com/__utm.gif
+        - 'go.microsoft.com'
+        - 'outlook.live.com'
+        - 'mail-settings.google.com'
+    condition: 1 of selection* and post and not filter
+falsepositives:
+    - It is expected to see legitimate GET requests towards these URIs, in rare cases POST might occur as legitimate traffic.
+level: medium
+tags:
+    - attack.command_and_control

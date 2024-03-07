@@ -1,0 +1,24 @@
+title: DonPapi being executed
+id: 25124754-2631-48b1-a2d7-26022e91e59c
+description: DonPapi, tool for dumping DPAPI credentials observed
+status: stable
+author: NTT Security - Robin Hellsten
+date: 2022/10/20
+references:
+  - https://unit42.paloaltonetworks.com/ransom-cartel-ransomware/
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    python:
+      CommandLine|contains: 'python'
+    papi:
+      CommandLine|contains: 'donpapi'
+    condition: python and papi
+falsepositives:
+    - No known false positives
+level: high
+tags:
+  - attack.t1555
+  - attack.credential_access
+  - attack.lateral_movement

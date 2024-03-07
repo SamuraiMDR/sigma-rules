@@ -1,0 +1,22 @@
+title: HTTP traffic over anomalous ports
+id: 273651ac-ad12-11ed-afa1-0242ac120002
+status: experimental
+description: Detect HTTP traffic over anomalous ports, TA416 has been observed to tunnel SSH traffic through HTTPS over port 22.
+status: stable
+author: NTT Security - Axel Olsson
+date: 2023/02/15
+logsource:
+    category: proxy
+detection:
+    selection:
+        dest_port:
+            - 22
+            - 3389
+            - 1337
+        url|startswith: /
+    condition: selection
+falsepositives:
+    - Legitimate HTTP traffic over weird ports.
+level: medium
+tags:
+    - attack.command_and_control

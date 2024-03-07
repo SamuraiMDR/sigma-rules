@@ -1,0 +1,34 @@
+title: Phishing Lure via Google Translate
+id: 910e7e3d-794c-4ec2-b94f-9cbb1857b50c
+description: It is common for phishing lures to be served from IPFS or object storage services, using Google Translate as a proxy
+status: stable
+author: NTT Security - Patrik Olson
+date: 2022/11/21
+logsource:
+    category: proxy
+detection:
+  google_translate:
+    - cs-host: translate.goog
+    - cs-host|endswith: .translate.goog
+  sus_ipfs:
+    c-uri-query|contains: _x_tr_hp=bafy
+  sus_storage_bucket:
+    cs-host|contains:
+      - linodeobjects-com
+      - digitaloceanspaces-com
+      - dream-io
+      - wasabisys-com
+      - vultrobjects-com
+      - backblazeb2-com
+      - storageapi-fleek-co
+      - blob-core-windows-net
+      - r2-dev
+  sus_aws_s3:
+    cs-host|contains: amazonaws-com
+    cs-host|re: '\bs3\b'
+  condition: google_translate and 1 of sus*
+falsepositives:
+  - Unlikely, but do verify that the url is serving a phishing page
+level: high
+tags:
+  - attack.initial_access

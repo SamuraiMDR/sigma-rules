@@ -1,0 +1,37 @@
+title: PowerShell/BITS Downloading File from Blob Storage
+id: fb04e413-1f0d-4c39-a25a-812050f39f44
+description: Observed during pentest engagement, malicious PowerShell modules downloaded from blob storage provider
+status: stable
+author: NTT Security - Axel Olsson, Patrik Olson
+date: 2022/11/23
+modified: 2023/06/18
+logsource:
+    category: proxy
+detection:
+  objectstorage_misc:
+    cs-host|endswith:
+      - .linodeobjects.com
+      - .digitaloceanspaces.com
+      - .dream.io
+      - .wasabisys.com
+      - .vultrobjects.com
+      - .backblazeb2.com
+      - storageapi.fleek.co
+      - .blob.core.windows.net
+      - api.onedrive.com
+  objectstorage_aws:
+    cs-host|endswith: .amazonaws.com
+    cs-host|re: '\bs3\b'
+  useragent:
+    c-useragent|contains:
+      - BITS
+      - Powershell
+  filter:
+    cs-host:
+      - pscoretestdata.blob.core.windows.net
+  condition: '1 of objectstorage* and useragent and not filter'
+falsepositives:
+  - Yes
+level: medium
+tags:
+  - attack.execution

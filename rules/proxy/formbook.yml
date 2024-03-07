@@ -1,0 +1,32 @@
+title: Formbook C2 Traffic
+id: 3d9cc43f-1897-4955-b959-9d184021ca19
+description: Detects URI combos used by Formbook/Xloader
+status: stable
+author: NTT Security - Amata Anantaprayoon
+date: 2023/06/19
+references:
+  - https://malpedia.caad.fkie.fraunhofer.de/details/win.formbook
+  - https://www.malware-traffic-analysis.net/2023/06/13/index.html
+logsource:
+  category: proxy
+detection:
+    selection:
+      cs-method: GET
+      c-uri|re: "^/[a-zA-Z0-9]{4}/$"
+      cs-referer: ""
+      c-useragent: ""
+      url|startswith: "http://www."
+    filter:
+      c-uri-query: ""
+      c-uri:
+        - "/link/"
+        - "/user/"
+    condition: selection and not filter
+falsepositives:
+  - Legit urls matching the same pattern
+truepositives:
+  - Same pattern towards multiple domains, as shown in the malware-traffic blog
+  - c-uri-query contains long random char including _ / = +
+level: high
+tags:
+  - attack.command_and_control

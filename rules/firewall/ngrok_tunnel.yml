@@ -1,0 +1,68 @@
+title: Ngrok Tunnel Established
+id: 840ae62f-2ce2-44a4-892c-b1c8b6fb5115
+description: Ngrok establishes a reverse tunnel that exposes one or multiple local network services
+  to the internet, bypassing ingress firewall rules. Has been abused by threat actors as a C2 channel.
+status: experimental
+author: NTT Security - Patrik Olson
+date: 2024/03/04
+modified: 2024/03/05
+logsource:
+  category: firewall
+references:
+  - https://www.socinvestigation.com/ngrok-threat-hunting-detect-hackers-at-the-end-of-the-tunnel/
+  - https://blog.bushidotoken.net/2023/09/tracking-adversaries-akira-another.html # Akira has used ngrok to tunnel C2 traffic
+  - https://s3.amazonaws.com/dns.ngrok.com/tunnel.json # Ngrok tunnel endpoints
+tags:
+  - attack.defense_evasion
+  - attack.t1599
+detection:
+  selection:
+    dest_port: 443
+    dest_ip:
+      - 3.6.96.240
+      - 3.12.62.205
+      - 3.16.250.205
+      - 3.20.27.198
+      - 3.104.168.138
+      - 3.105.185.27
+      - 3.122.29.226
+      - 3.123.83.158
+      - 3.123.177.80
+      - 3.125.92.105
+      - 3.125.234.140
+      - 3.133.228.214
+      - 3.134.73.173
+      - 3.136.132.147
+      - 13.54.73.251
+      - 13.112.247.114
+      - 13.126.63.42
+      - 13.228.59.63
+      - 13.232.27.141
+      - 13.232.212.61
+      - 13.233.205.122
+      - 13.239.180.227
+      - 13.251.162.108
+      - 18.141.102.200
+      - 18.177.129.29
+      - 18.177.245.43
+      - 18.228.107.150
+      - 18.229.94.125
+      - 18.229.114.140
+      - 18.229.186.234
+      - 52.9.131.203
+      - 52.28.187.147
+      - 52.53.56.252
+      - 52.53.75.151
+      - 52.196.202.158
+      - 52.220.69.60
+      - 52.220.126.110
+      - 54.153.228.243
+      - 54.176.167.82
+      - 54.178.247.185
+      - 54.193.166.121
+      - 54.233.161.49
+      - 204.236.189.107
+  condition: selection
+falsepositives:
+- Legitimate use of ngrok tunnels, e.g. for exposing a webhook to a cloud service
+level: medium

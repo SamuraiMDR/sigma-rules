@@ -1,0 +1,23 @@
+title: NetSupport RAT
+id: 5dab7993-b3b6-4b8c-89e5-503783806f00
+description: NetSupport Remote Admin Tool, commonly abused by malicious actors
+status: test
+author: NTT Security - Axel Olsson, Patrik Olson
+date: 2023/10/31
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-useragent|startswith: "NetSupport Manager/"
+  internal_src: # To reduce noise from scanners etc
+    - vendor: Zscaler
+    - src_ip|cidr:
+      - "10.0.0.0/8"
+      - "192.168.0.0/16"
+      - "172.16.0.0/12"
+  condition: selection and internal_src
+falsepositives:
+  - Unlikely
+level: high
+tags:
+  - attack.command_and_control

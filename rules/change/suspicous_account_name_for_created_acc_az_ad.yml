@@ -1,0 +1,35 @@
+title: Suspicious account creation
+id: 271caa0f-29fc-4123-888d-bf241700d623
+description: Suspicious accountname used for created account
+status: stable
+author: NTT Security - Axel Olsson
+date: 2022/08/12
+logsource:
+    product: azure
+    service: activitylogs
+tags:
+    - attack.persistence
+detection:
+    selection:
+      Operation: 'Add user.'
+      ObjectId|startswith:
+        - 'admin'
+        - 'Admin'
+        - 'backup'
+        - 'User'
+        - 'Test'
+        - 'ftpuser@'
+        - 'Support@'
+        - 'root@'
+        - 'Office@'
+        - 'remote@'
+        - 'office@'
+        - 'manager@'
+        - 'username@'
+        - 'login@'
+        - 'super@'
+        - 'domain@'
+    condition: selection
+falsepositives:
+    - Legitimate accounts
+level: high

@@ -1,0 +1,41 @@
+title: CobaltStrike DNS communication
+id: 7d485001-d8d4-4218-b146-11279cedd398
+description: Detects DNS traffic towards domain in format as specified in malleable profile and reference tools.
+status: stable
+author: NTT Security - Axel Olsson
+date: 2022/08/04
+references:
+    - https://github.com/threatexpress/malleable-c2/blob/master/jquery-c2.4.3.profile#L205
+    - https://github.com/bluscreenofjeff/Malleable-C2-Randomizer/blob/master/Sample%20Lists/dns_stager_subhost.txt
+    - https://trial.cobaltstrike.com/help-malleable-c2
+logsource:
+    category: dns_query
+detection:
+    selection1:
+        QueryName|startswith:
+            - '.wwwds.'
+            - 'doc-stg-prepend'
+            - 'doc-stg-sh.'
+            - 'a.bc.'
+            - 'b.1a.'
+            - 'c.4a.'
+            - 'd.tx.'
+            - 'e.md'
+            - 'f.po.'
+            - 'doc.bc.'
+            - 'doc.1a.'
+            - 'doc.4a.'
+            - 'doc.tx.'
+            - 'doc.md.'
+            - 'doc.po.'
+            - 'aaa.stage.' # https://blogs.blackberry.com/en/2023/08/cuba-ransomware-deploys-new-tools-targets-critical-infrastructure-sector-in-the-usa-and-it-integrator-in-latin-america
+    selection2:
+        QueryName|contains:
+          - '.123456.'
+    condition: selection1 or selection2
+falsepositives:
+    - Potentially legitimate domains
+    - External scanning hosts looking for C2 servers
+level: medium
+tags:
+  - attack.command_and_control

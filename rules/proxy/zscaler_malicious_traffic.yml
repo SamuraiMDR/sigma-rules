@@ -1,0 +1,41 @@
+title: Zscaler IPS Malicious Traffic
+id: ee917445-1684-497a-a762-bc54a4b3f147
+description: Zscaler IPS malicious proxy traffic observed
+status: experimental
+author: NTT Security - Axel Olsson
+date: 2024/01/05
+modified: 2024/01/05
+logsource:
+  category: proxy
+detection:
+  selection:
+    vendor: 'Zscaler'
+    signature|contains:
+      - .Trojan.
+      - .Backdoor.
+      - .Ransom.
+      - .Hacktool.
+    url|startswith: http #Ensure its a url and not only domain which were too noisy
+    cs-referer: "" #To filter out legitimate traffic being misclassified
+  filter:
+    - signature|startswith:
+      - Win32.Trojan.Gen. # Dynamically generated, too noisy
+      - JS.
+    - signature:
+      - Win32.Trojan.Tiggre!rfn.IZ 
+      - Win32.Trojan.Occamy.IZ
+      - Win32.Trojan.Floxif.IZ
+      - Win32.Trojan.Agent.LZ 
+      - Win32.Hacktool.Crack.IZ  
+      - Android.Trojan.Axent  
+      - Win32.Ransom.Cryptolite
+      - Win32.Trojan.Emotet!ml.IZ
+      - Win32.Ransom.WannaCrypt
+      - Win32.Trojan.HttpBrowser
+  condition: selection and not filter
+falsepositives:
+  - Faulty signatures triggering on legitimate traffic
+level: medium
+tags:
+  - attack.initial_access
+  - attack.command_and_control

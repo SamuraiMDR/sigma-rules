@@ -1,0 +1,28 @@
+title: Dropbox hosted file download
+id: 97c14fc0-ea20-4ef3-b740-0a4624276806
+description: Dropbox is a filehosting service used to host files which can have a malicious purpose
+status: stable
+author: NTT Security - Axel Olsson
+date: 2022/08/08
+references:
+  - https://unit42.paloaltonetworks.com/cloaked-ursa-online-storage-services-campaigns/
+logsource:
+    category: proxy
+detection:
+    selection:
+        cs-host:
+            - "www.dropbox.com"
+            - "dl.dropbox.com"
+        url|endswith:
+            - 'dl=1'
+    filter:
+        - c-uri|endswith:
+             - '.css'
+             - '.jpg'
+             - '.png'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate file downloads
+level: medium
+tags:
+    - attack.initial_access

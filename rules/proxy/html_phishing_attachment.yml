@@ -1,0 +1,21 @@
+title: HTML Phishing Attachment
+id: 5a692870-01a7-4b33-b054-6b9dafb84322
+description: Potential credential exfiltration from an HTML phishing attachment
+status: stable
+author: NTT Security - Patrik Olson
+date: 2023/05/24
+logsource:
+    category: proxy
+detection:
+    selection:
+      cs-method: POST
+      cs-referer: ""
+      c-uri|endswith:
+        - 'req.php'
+        - 'jquery.php'
+    condition: selection
+falsepositives:
+    - Surely
+level: medium
+tags:
+    - attack.initial_access

@@ -1,0 +1,35 @@
+title: Suspicious Download from Wordpress URL
+id: 61bcccfe-8d5d-4e3d-9c46-10eb5faf02d4
+description: Suspicious download from likely Wordpress page
+status: stable
+author: NTT Security - Axel Olsson
+date: 2021/11/02
+modified: 2024/02/08
+references:
+    - None
+logsource:
+    category: proxy
+detection:
+    selection:
+      c-uri|endswith:
+        - '.exe'
+        - '.vbs'
+        - '.bat'
+        - '.rar'
+        - '.ps1'
+        - '.pptm'
+        - '.rtf'
+        - '.hta'
+        - '.dll'
+        - '.ws'
+        - '.wsf'
+        - '.sct'
+        - '.bin'
+        - '.sh'
+      c-uri|startswith: '/wp-'
+    condition: selection
+falsepositives:
+    - Legitimate files hosted on Wordpress pages
+level: medium
+tags:
+  - attack.command_and_control

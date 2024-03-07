@@ -1,0 +1,39 @@
+title: Email Address in Redirection Url
+id: 32b3054c-762f-4e7f-b604-524548e5da00
+description: URL containing potential email address, on a domain that has been known to redirect users to phishing sites.
+status: test
+author: NTT Security - Leandro Ferreira, Patrik Olson
+date: 2023/07/04
+modified: 2023/12/04
+logsource:
+  category: proxy
+detection:
+  redirector:
+    cs-host|endswith:
+      - codesandbox.io
+      - r20.rs6.net
+      - tracker.club-os.com
+      - actk.ke
+      - secure.adnxs.com
+      - go.skimresources.com
+      - r.smore.com
+      - apiservices.krxd.net
+  plain_email:
+    - c-uri|re:
+      - '@[^&/]+\.(com|no|se)'
+    - c-uri-query|re:
+      - '@[^&/]+\.(com|no|se)'
+  base64_tlds:
+    c-uri|re:
+      - '(LmNvb|5jb2|uY29t)' # Base64 offsets for ".com"
+    c-uri-query|re:
+      - '(LmNvb|5jb2|uY29t)' # Base64 offsets for ".com"
+  filter:
+    - url|contains:
+      - 'ssp.disqus.com'
+  condition: redirector and (plain_email or base64_tlds) and not filter
+falsepositives:
+  - Surely. Visit the URL to verify if it is a phishing page
+level: medium
+tags:
+  - attack.initial_access

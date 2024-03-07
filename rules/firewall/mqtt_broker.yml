@@ -1,0 +1,29 @@
+title: Public MQTT Broker
+id: ca5fd1ad-b794-4e81-ad25-6be4cb4d116f
+description: Public MQTT brokers are used as a C2 channel by WailingCrab malware
+references:
+  - https://securityintelligence.com/x-force/wailingcrab-malware-misues-mqtt-messaging-protocol/
+  - https://malpedia.caad.fkie.fraunhofer.de/details/win.wikiloader
+status: stable
+author: NTT Security - Patrik Olson
+date: 2023/11/29
+modified: 2023/11/29
+tags:
+  - attack.command_and_control
+logsource:
+  category: firewall
+detection:
+  selection_dns:
+    dest_record:
+      - broker.emqx.io
+      - emqx.public-broker.com
+  selection_fw:
+    dest_ip:
+      - 54.244.173.190
+      - 34.249.184.60
+      - 54.146.113.169
+    dest_port: 1883
+  condition: 1 of selection_*
+falsepositives:
+  - IOT devices and other legitimate uses of public MQTT brokers
+level: medium

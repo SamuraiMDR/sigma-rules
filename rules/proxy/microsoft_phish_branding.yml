@@ -1,0 +1,20 @@
+title: Microsoft Phish Fetching Tenant Logo/Background
+id: 613b41c9-c48c-41ef-9e0d-f3e2477de978
+description: Investigate cs-referer for potential phishing page
+status: test
+author: NTT Security - Patrik Olson
+date: 2023/06/18
+logsource:
+    category: proxy
+detection:
+    selection:
+      cs-host: aadcdn.msauthimages.net
+      cs-referer|contains: "."
+    filter:
+      cs-referer|re: '^(https?://)?(.+\.)?(microsoftonline\.com|microsoft\.com|live\.com|windowsazure\.com|autologon\.microsoftazuread-sso\.com)/'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate Microsoft domains fetching tenant branding images
+level: medium
+tags:
+    - attack.initial_access

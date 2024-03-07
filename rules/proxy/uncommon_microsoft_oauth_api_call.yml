@@ -1,0 +1,25 @@
+title: Uncommon Microsoft Oauth2 API call
+id: adc9d94f-7c57-4ed1-8711-5afc12fd6fed
+description: Uncommon Microsoft Oauth2 API call observed to renew access token by BlueBravo
+status: experimental
+author: NTT Security - Axel Olsson
+date: 2023/08/02
+references:
+    - https://go.recordedfuture.com/hubfs/reports/cta-2023-0727-1.pdf
+    - https://blog.cluster25.duskrise.com/2022/09/23/in-the-footsteps-of-the-fancy-bear-powerpoint-graphite/
+logsource:
+    category: proxy
+detection:
+    selection:
+      c-uri: '/common/oauth2/v2.0/token'
+      cs-referer: ""
+    filter:
+      c-useragent|contains:
+          - 'Mozilla/5.0 (Windows'
+    condition: selection and not filter
+falsepositives:
+    - Legitimate requests to renew the token using this rare API path, investigate the traffic from the host if it looks to be from a legitimate product or if it looks suspicious.
+    - It could be a sign of exfiltration and/or C2 communication if it is not seen in relation to web surf or other legitimate activity.
+level: medium
+tags:
+    - attack.command_and_control

@@ -1,0 +1,22 @@
+title: New workstation created using sam-the-admin
+id: 8f383fe8-689f-4896-a06a-6631a2c62e0b
+status: stable
+description: Detects workstation name likely created by exploit utilizing CVE-2021-42278 and CVE-2021-42287
+author: NTT Security - Robin Hellsten
+date: 2021/12/17
+references:
+    - https://github.com/WazeHell/sam-the-admin/blob/main/sam_the_admin.py#L30
+logsource:
+    product: windows
+    category: computer_creation
+detection:
+    newName:
+        computer_name|contains:
+            "SAMTHEADMIN"
+    condition: newName
+falsepositives:
+    - No known cases of false positives
+level: high
+tags:
+  - attack.persistence
+  - attack.privilege_escalation

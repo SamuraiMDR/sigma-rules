@@ -1,0 +1,60 @@
+title: Phishing Proxy
+id: b03d7953-62ab-48f6-b457-1a626850f17e
+description: >-
+  A phishing proxy typically relays the same requests/responses as
+  the legitimate site, while also intercepting credentials and/or
+  session cookies. This rule detects HTTP requests that are part of
+  login flows on sites that are common in a corporate environment.
+status: test
+author: NTT Security - Axel Olsson, Amata Anantaprayoon, Patrik Olson
+date: 2023/12/09
+modified: 2023/12/09
+logsource:
+  category: proxy
+references:
+  - https://www.microsoft.com/en-us/security/blog/2023/12/07/star-blizzard-increases-sophistication-and-evasion-in-ongoing-attacks/
+  - https://github.com/kgretzky/evilginx2
+  - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-341a
+detection:
+  selection_google: # https://accounts.google.com
+    cs-method|cased: 'POST'
+    c-uri:
+      - '/signin/v2/identifier'
+      - '/v3/signin/_/AccountsSignInUi/data/batchexecute' # Page loaded, email submitted or password submitted
+  selection_linkedin: # https://www.linkedin.com
+    cs-method|cased: 'POST'
+    c-uri|cased:
+      - '/uas/login-submit' # Email & password submitted, or oauth callback
+      - '/checkpooint/lg/login-submit' # Email & password submitted, or oauth callback
+  selection_microsoft_live: # https://login.live.com
+    cs-method|cased: 'POST'
+    c-uri:
+      - '/GetCredentialType.srf' # Email submitted
+      - '/ppsecure/post.srf' # Password or oauth token submitted
+      - '/oauth20_authorize.srf' # Oauth callback
+  selection_microsoft_online: # https://login.microsoftonline.com
+    cs-method|cased: 'POST'
+    c-uri:
+      - '/common/GetCredentialType' # Email submitted
+  selection_microsoft_adfs: # On-premises single sign-on portal
+    cs-method|cased: 'POST'
+    c-uri|cased:
+      - '/adfs/ls' # Password submitted
+    c-uri-query|contains|cased:
+      - 'email=' # Rarely observed on real ADFS instances, except in returnUrl
+  filter:
+    - cs-host|cased:
+      - 'accounts.google.com'
+      - 'login.live.com'
+      - 'login.live.com.mcas.ms'
+      - 'login.microsoftonline.com'
+      - 'login.microsoftonline.com.mcas.ms'
+    - cs-host|endswith|cased:
+      - '.linkedin.com'
+      - '.linkedin.cn'
+  condition: 1 of selection_* and not filter
+falsepositives:
+  - Old domains are likely FP, check whois or similar data
+level: high
+tags:
+  - attack.initial_access
