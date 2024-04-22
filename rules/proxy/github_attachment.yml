@@ -1,0 +1,22 @@
+title: File Attached to GitHub Issue
+id: 6634348b-c8ba-4edf-aa3a-9cd7852c7430
+description: Files can be attached to GitHub issues of well-known repositories, giving
+  them a credible URL. Investigate the url, see if the payload is malicious.
+references:
+  - https://x.com/Ax_Sharma/status/1781706435115491409
+status: test
+author: NTT Security - Kim Bokholm, Ramine Etow, Patrik Olson
+date: 2024/04/22
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host: github.com
+    cs-uri|contains: "/files/"
+    cs-uri|re: '/files/[0-9]+/'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high
+tags:
+  - attack.initial_access
