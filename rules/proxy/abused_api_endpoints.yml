@@ -88,6 +88,9 @@ detection:
       cs-host: 'telegra.ph'
       cs-referer: ""
       c-uri: '\/.{5,}'
+    service_usebasin:
+      url_host: 'usebasin.com'
+      http_method: 'POST'
     service_vscode_tunnels:
       cs-host|endswith:
         - '.devtunnels.ms'
