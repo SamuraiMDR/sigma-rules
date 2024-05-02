@@ -1,0 +1,87 @@
+title: Possible Account Compromise Email Rule
+id: 2ff31c7c-a33a-4c1f-9b64-327de4298738
+status: test
+description: "Detects scenarios where an attacker attempts to hide within a compromised email account, such as creating RSS subscriptions, replacing original financial information with the attacker's details, or avoiding certain email notifications during a breach."
+references:
+    - https://redcanary.com/blog/email-forwarding-rules/
+    - https://raw.githubusercontent.com/PwC-IR/Business-Email-Compromise-Guide/main/PwC-Business_Email_Compromise-Guide.pdf
+    - https://expel.com/blog/seven-ways-to-spot-business-email-compromise-office-365/
+author: Ramine Etow
+date: 2024/03/25
+modified: 2024/04/19
+tags:
+    - attack.collection
+    - attack.t1114
+    - attack.t1114.003
+    - attack.initial_access
+    - attack.t1566
+logsource:
+  product: azure
+  service: office365
+detection:
+    inbox_rule:
+        Operation|cased:
+            - New-InboxRule
+            - Set-InboxRule
+    suspicious_folder:
+        Parameters.MoveToFolder|contains:
+            - RSS
+    suspicious_keywords:
+        - Parameters.BodyContainsWords:
+            - dropbox
+            - hacked
+            - span
+            - phishing
+            - fraud
+            - drop
+            - hack
+            - drop box
+            - azure
+            - invoice
+            - Wire
+            - Tax
+            - Payroll
+            - Password
+            - Docusign
+        - Parameters.SubjectContainsWords:
+            - dropbox
+            - hacked
+            - span
+            - phishing
+            - fraud
+            - drop
+            - hack
+            - drop box
+            - azure
+            - invoice
+            - Wire
+            - Tax
+            - Payroll
+            - Password
+            - Docusign
+        - Parameters.SubjectOrBodyContainsWords:
+            - dropbox
+            - hacked
+            - span
+            - phishing
+            - fraud
+            - drop
+            - hack
+            - drop box
+            - azure
+            - invoice
+            - Wire
+            - Tax
+            - Payroll
+            - Password
+            - Docusign
+    condition: inbox_rule and 1 of (suspicious_*)
+fields:
+    - Parameters.Name
+    - Parameters.MoveToFolder
+    - Parameters.BodyContainsWords
+    - Parameters.SubjectContainsWords
+    - Parameters.SubjectOrBodyContainsWords
+falsepositives:
+    - Correlate with other email rules user might have created in the past.
+level: high
