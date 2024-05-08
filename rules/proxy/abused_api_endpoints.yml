@@ -16,6 +16,7 @@ references:
   - https://www.rnbo.gov.ua/files/2023_YEAR/CYBERCENTER/Gamaredon_activity.pdf # Telegraph
   - https://ipfyx.fr/post/visual-studio-code-tunnel/ # Vscode tunnel
   - https://blog.sekoia.io/apt28-leverages-multiple-phishing-techniques-to-target-ukrainian-civil-society/ # APT28 Pipedream
+  - https://cloud.google.com/blog/topics/threat-intelligence/untangling-iran-apt42-operations/ # APT42 .glitch.me usage
 logsource:
     category: proxy
 detection:
@@ -90,6 +91,10 @@ detection:
       c-uri: '\/.{5,}'
     service_usebasin:
       url_host: 'usebasin.com'
+      http_method: 'POST'
+    service_glitch:
+      url_host|endswith: '.glitch.me'
+      http_referer: ''
       http_method: 'POST'
     service_vscode_tunnels:
       cs-host|endswith:
