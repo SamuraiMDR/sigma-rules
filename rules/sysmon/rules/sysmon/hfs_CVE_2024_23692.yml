@@ -1,0 +1,22 @@
+title: CVE-2024-23692 - Rejetto HTTP File Server Unauthenticated RCE
+id: d9e0fbfc-ee95-45e7-82db-5124ddfd3cb0
+description: Vulnerability allows unauthenticated remote attackers to execute arbitrary commands on the target system.
+status: experimental
+author: NTT Security - Amata Anantaprayoon
+date: 2024/06/11
+modified: 2024/06/11
+references:
+  - https://mohemiv.com/all/rejetto-http-file-server-2-3m-unauthenticated-rce/
+  - https://github.com/rapid7/metasploit-framework/pull/19240
+  - https://attackerkb.com/assessments/f5c5359d-2446-4e33-a1a2-6a66aa2fb5f6
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage|endswith: 'hfs.exe'
+    Image|startswith: 'C:\\Windows\\SysWOW64\\'
+  condition: selection
+falsepositives: Unknown
+level: high
+tags: attack.execution
