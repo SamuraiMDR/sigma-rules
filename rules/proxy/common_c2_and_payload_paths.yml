@@ -17,6 +17,7 @@ references:
   - https://cert.gov.ua/article/5213167 # APT28, Turla
   - https://www.microsoft.com/en-us/security/blog/2023/11/22/diamond-sleet-supply-chain-compromise-distributes-a-modified-cyberlink-installer/ #Lazarus
   - https://www.mandiant.com/resources/blog/unc4990-evolution-usb-malware # unc4990 updater.php
+  - https://x.com/cyb3rops/status/1813087660136931758 # Lazarus
 date: 2023/08/01
 modified: 2024/02/01
 logsource:
@@ -47,6 +48,7 @@ detection:
         - '/about.php'
         - '/addin.php'
         - '/wids.php'
+        - '_common.asp'
     selection_3_apt29:
       c-uri|endswith:
         - '/idx.php'
