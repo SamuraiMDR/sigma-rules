@@ -17,9 +17,15 @@ references:
   - https://ipfyx.fr/post/visual-studio-code-tunnel/ # Vscode tunnel
   - https://blog.sekoia.io/apt28-leverages-multiple-phishing-techniques-to-target-ukrainian-civil-society/ # APT28 Pipedream
   - https://cloud.google.com/blog/topics/threat-intelligence/untangling-iran-apt42-operations/ # APT42 .glitch.me usage
+  - https://securelist.com/cloudsorcerer-new-apt-cloud-actor/113056/ # Yandex, graph and dropbox
 logsource:
     category: proxy
 detection:
+    service_yandex_cloud_api:
+      http_method:
+        - 'POST'
+        - 'PUT'
+      url_host: 'cloud-api.yandex.net'
     service_pipedream:
       cs-method:
         - 'POST'
