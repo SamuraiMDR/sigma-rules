@@ -1,0 +1,68 @@
+title: Potential Persistence Via Outlook Home Page
+id: e2049908-42a5-4720-89cc-62b919effd0e
+status: test
+description: Changes the Outlook home page, which may lead to execution of malicious scripts.
+references:
+    - https://trustedsec.com/blog/specula-turning-outlook-into-a-c2-with-one-registry-change
+    - https://sensepost.com/blog/2017/outlook-home-page-another-ruler-vector/
+author: NTT Security - Ramine Etow
+date: 2024/07/31
+modified: 2024/08/07
+tags:
+    - attack.persistence
+    - attack.T1137.004
+    - cve.2017.11774
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    selection:
+        TargetObject|contains:
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Calendar'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Contacts'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Deleted Items'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Drafts'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Journal'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Junk E-mail'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Notes'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Outbox'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\RSS'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Sent Mail'
+            - '\Software\Microsoft\Office\16.0\Outlook\WebView\Tasks'
+            - '\Software\Microsoft\Office\16.0\Outlook\Today'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Inbox'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Calendar'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Contacts'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Deleted Items'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Drafts'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Journal'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Junk E-mail'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Notes'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Outbox'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\RSS'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Sent Mail'
+            - '\Software\Microsoft\Office\15.0\Outlook\WebView\Tasks'
+            - '\Software\Microsoft\Office\15.0\Outlook\Today'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Inbox'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Calendar'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Contacts'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Deleted Items'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Drafts'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Journal'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Junk E-mail'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Notes'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Outbox'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\RSS'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Sent Mail'
+            - '\Software\Microsoft\Office\14.0\Outlook\WebView\Tasks'
+            - '\Software\Microsoft\Office\14.0\Outlook\Today'
+    condition: selection
+falsepositives:
+    - Unknown
+level: high
+fields:
+    - Image
+    - TargetObject
+    - Details
+    - NewValue
