@@ -17,6 +17,8 @@ detection:
     ParentImage|endswith: 'hfs.exe'
     Image|startswith: 'C:\\Windows\\SysWOW64\\'
   condition: selection
-falsepositives: Unknown
+falsepositives:
+  - Unknown
 level: high
-tags: attack.execution
+tags:
+  - attack.execution
