@@ -1,0 +1,24 @@
+title: Phishing Redirector
+id: 3dc81d88-6d9c-4c86-bc5d-ff743d50dbee
+description: >-
+  URL pattern seen in multiple successful phishing attacks in the last few days.
+  This phishing redirector has been observed to be deployed on compromised websites. If the
+  user passes the antibot checks, they are redirected to a MITM phishing proxy (EvilProxy).
+  If the phish is successful, you should see authentication attempts from the phishing proxy
+  IP address in Azure AD / Entra ID logs.
+status: test
+author: NTT Security - Patrik Olson, Ramine Etow
+date: 2024-08-13
+modified: 2024-08-13
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-uri-query|startswith: 'classic='
+    c-uri-query|re: '^classic=[A-Za-z0-9]{10,}'
+  condition: selection
+falsepositives:
+  - User may have opened phishing lure without entering any credentials. Look for suspicious authentication attempts
+level: high
+tags:
+  - attack.defense-evasion

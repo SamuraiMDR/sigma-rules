@@ -1,0 +1,25 @@
+title: Phishing Redirector Retrieving Company Branding
+id: 632695d7-a837-40b4-92d7-b40ec5b3fee4
+description: >-
+  Detects a potential phishing redirector site that retrieves branding material
+  for the target company to masquerade as a company website. In this case,
+  retrieving the company's favicon from Google.
+status: test
+author: NTT Security - Ramine Etow
+date: 2024-08-14
+modified: 2024-08-16
+logsource:
+    category: proxy
+detection:
+    selection:
+        cs-host|endswith: 's2.googleusercontent.com'
+        c-uri: '/s2/favicons'
+        c-uri-query|startswith: 'domain='
+    condition: selection
+falsepositives:
+    - Legitimate use of Google services for favicon retrieval
+level: medium
+tags:
+    - attack.defense-evasion
+    - attack.spearphishing
+    - attack.t1071.001

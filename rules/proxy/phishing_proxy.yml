@@ -5,17 +5,22 @@ description: >-
   the legitimate site, while also intercepting credentials and/or
   session cookies. This rule detects HTTP requests that are part of
   login flows on sites that are common in a corporate environment.
+  It can also detect a subdomain pattern commonly used by EvilProxy.
 status: test
 author: NTT Security - Axel Olsson, Amata Anantaprayoon, Patrik Olson
-date: 2023/12/09
-modified: 2023/12/09
+date: 2023-12-09
+modified: 2024-08-16
 logsource:
   category: proxy
 references:
   - https://www.microsoft.com/en-us/security/blog/2023/12/07/star-blizzard-increases-sophistication-and-evasion-in-ongoing-attacks/
   - https://github.com/kgretzky/evilginx2
   - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-341a
+  - https://www.proofpoint.com/us/blog/email-and-cloud-threats/cloud-account-takeover-campaign-leveraging-evilproxy-targets-top-level # EvilProxy
+  - https://www.virustotal.com/gui/ip-address/154.29.75.192/relations # Sample EvilProxy server, see passive DNS records from June 2023
 detection:
+  selection_evilproxy_subdomain:
+    cs-host|re: '^[a-f0-9]{8}-[a-f0-9]{8}\.' # Each victim session gets a unique subdomain?
   selection_google: # https://accounts.google.com
     cs-method|cased: 'POST'
     c-uri:
@@ -46,15 +51,16 @@ detection:
     - cs-host|cased:
       - 'accounts.google.com'
       - 'login.live.com'
-      - 'login.live.com.mcas.ms'
       - 'login.microsoftonline.com'
-      - 'login.microsoftonline.com.mcas.ms'
+      - 'login.microsoftonline.us'
     - cs-host|endswith|cased:
       - '.linkedin.com'
       - '.linkedin.cn'
+      - '.mcas.ms' # Microsoft Defender for Cloud Apps
   condition: 1 of selection_* and not filter
 falsepositives:
   - Old domains are likely FP, check whois or similar data
+  - The user may not have entered any credentials. Look for suspicious logins or activity logs around this time
 level: high
 tags:
-  - attack.initial_access
+  - attack.initial-access
