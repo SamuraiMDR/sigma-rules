@@ -1,0 +1,24 @@
+title: Trufflehog Validating Leaked Credentials
+id: f4eebef3-0598-4b6e-858f-5e6555cf439d
+description: Trufflehog is a software that can scan for leaked credentials and validate
+  them against the respective service
+references:
+  - https://github.com/trufflesecurity/trufflehog
+  - https://github.com/trufflesecurity/trufflehog/blob/7fa397ecf89b47027507c55cd97a1d11273fe944/pkg/sources/s3/s3.go#L169
+  - https://github.com/trufflesecurity/trufflehog/blob/7fa397ecf89b47027507c55cd97a1d11273fe944/pkg/common/http.go#L94
+status: stable
+author: Patrik Olson
+date: '2024-09-13'
+modified: '2024-09-13'
+logsource:
+  category: auth
+detection:
+  selection:
+    - http_user_agent|contains: 'TruffleHog'
+    - user_role|contains: 'trufflehog' # AWS CloudTrail
+  condition: selection
+falsepositives:
+  - Unknown
+tags:
+  - attack.credential-access
+level: high
