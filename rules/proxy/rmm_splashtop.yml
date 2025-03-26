@@ -12,7 +12,7 @@ logsource:
 detection:
   selection:
     cs-host|endswith: "relay.splashtop.com"
-    bytes_out|ge: 10000
+    bytes_out|gte: 10000
   condition: selection
 falsepositives:
   - Non-interactive Splashtop related traffic, it is only an educated guess that interactive traffic has a high bytes count due to to it happening so rarely.
