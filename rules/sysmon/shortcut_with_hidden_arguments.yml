@@ -1,0 +1,24 @@
+title: Hidden Arguments in Shortcut
+id: 7f20cccc-0572-4243-a193-a5f37a90c0b0
+description: >-
+  There is a vulnerability in Windows Explorer in which invisible space characters
+  can lead to command line arguments being hidden from the "Target" text box of a shortcut.
+references:
+  - https://www.trendmicro.com/en_us/research/25/c/windows-shortcut-zero-day-exploit.html
+status: test
+author: Ramine Etow, Patrik Olson
+date: 2025-03-19
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    parent_image|endswith: '\explorer.exe'
+    command|re: '[\x09\x0a\x0b\x0c\x0d]|[\s]{15,}'
+  filter_onenote:
+    image|endswith: '\onenotem.exe'
+    command|re: '\tsr'
+  condition: selection and not 1 of filter_*
+falsepositives:
+- Unknown
+level: medium
