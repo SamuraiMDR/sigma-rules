@@ -3,7 +3,7 @@ id: ab724af0-630c-4f00-b18a-f12bc582deae
 description: Network traffic to services abused for C2 communication from odd paths
 status: stable
 author: NTT Security - Axel Olsson
-date: 2023/03/16
+date: 2023-03-16
 reference:
   - https://mrtiepolo.medium.com/sophisticated-apt29-campaign-abuses-notion-api-to-target-the-european-commission-200188059f58
   - https://ti.qianxin.com/blog/articles/analysis-of-apt29%27s-attack-activities-against-italy/

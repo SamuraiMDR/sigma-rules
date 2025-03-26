@@ -3,8 +3,8 @@ id: d9e0fbfc-ee95-45e7-82db-5124ddfd3cb0
 description: Vulnerability allows unauthenticated remote attackers to execute arbitrary commands on the target system.
 status: experimental
 author: NTT Security - Amata Anantaprayoon
-date: 2024/06/11
-modified: 2024/06/11
+date: 2024-06-11
+modified: 2024-06-11
 references:
   - https://mohemiv.com/all/rejetto-http-file-server-2-3m-unauthenticated-rce/
   - https://github.com/rapid7/metasploit-framework/pull/19240
