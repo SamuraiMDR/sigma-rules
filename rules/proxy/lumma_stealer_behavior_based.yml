@@ -3,8 +3,8 @@ id: 99a00f52-0a98-4673-95f7-9b4fbf6463a9
 description: Searches for common communication patterns with suspiscious tlds associated with Lumma Stealer
 status: experimental
 author: NTT Security - Leandro Ferreira
-date: 2024/09/25
-modified: 2024/09/30
+date: '2024-09-25'
+modified: '2024-09-30'
 references:
   - https://medium.com/@Cyfirma_/lumma-stealer-tactics-impact-and-defense-strategies-6f44a682742f
   - https://threatfox.abuse.ch/browse/malware/win.lumma/

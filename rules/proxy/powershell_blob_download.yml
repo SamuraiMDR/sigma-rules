@@ -3,8 +3,8 @@ id: fb04e413-1f0d-4c39-a25a-812050f39f44
 description: Observed during pentest engagement, malicious PowerShell modules downloaded from blob storage provider
 status: stable
 author: NTT Security - Axel Olsson, Patrik Olson
-date: 2022/11/23
-modified: 2023/06/18
+date: '2022-11-23'
+modified: '2023-06-18'
 logsource:
     category: proxy
 detection:

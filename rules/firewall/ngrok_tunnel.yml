@@ -4,8 +4,8 @@ description: Ngrok establishes a reverse tunnel that exposes one or multiple loc
   to the internet, bypassing ingress firewall rules. Has been abused by threat actors as a C2 channel.
 status: experimental
 author: NTT Security - Patrik Olson
-date: 2024/03/04
-modified: 2024/03/05
+date: '2024-03-04'
+modified: '2024-03-05'
 logsource:
   category: firewall
 references:

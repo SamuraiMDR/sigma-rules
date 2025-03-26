@@ -3,7 +3,7 @@ id: 6adf34c1-750b-4024-8737-896ad08f50b2
 description: Actors have exploited CVE-2023-20198 to deploy a backdoor in the Cisco IOS XE web interface
 status: stable
 author: NTT Security - Patrik Olson
-date: 2023/10/18
+date: '2023-10-18'
 references:
   - https://blog.talosintelligence.com/active-exploitation-of-cisco-ios-xe-software/
   - https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-iosxe-webui-privesc-j22SaA4z

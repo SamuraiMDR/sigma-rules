@@ -6,8 +6,8 @@ author: NTT Security - Axel Olsson
 references:
     - https://www.securonix.com/blog/threat-labs-security-advisory-new-starkvortex-attack-campaign-threat-actors-use-drone-manual-lures-to-deliver-merlinagent-payloads/ #files.catbox.moe
     - https://www.rnbo.gov.ua/files/2023_YEAR/CYBERCENTER/november/APT29%20attacks%20Embassies%20using%20CVE-2023-38831%20-%20report%20en.pdf #ngrok-free.app apt29 payload hosting
-date: 2023/11/22
-modified: 2023/12/04
+date: '2023-11-22'
+modified: '2023-12-04'
 logsource:
     category: proxy
 detection:

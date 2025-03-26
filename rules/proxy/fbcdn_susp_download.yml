@@ -3,8 +3,8 @@ id: bde8d06b-3fd5-4022-9c13-95f0af23350a
 description: Facebook CDN has been misused to host malicious rar and zip archives, if bytes_in > 1000 bytes its  likely to be a rar or zip archive download.
 status: experimental
 author: NTT Security - Patrik Olson, Axel Olsson
-date: 2024/01/18
-modified: 2024/01/19
+date: '2024-01-18'
+modified: '2024-01-19'
 references:
   - https://labs.guard.io/mrtonyscam-botnet-of-facebook-users-launch-high-intent-messenger-phishing-attack-on-business-3182cfb12f4d
   - https://cyble.com/blog/new-editbot-stealer-spreads-via-social-media-messages/

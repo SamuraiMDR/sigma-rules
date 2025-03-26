@@ -3,7 +3,7 @@ id: 5dab7993-b3b6-4b8c-89e5-503783806f00
 description: NetSupport Remote Admin Tool, commonly abused by malicious actors
 status: test
 author: NTT Security - Axel Olsson, Patrik Olson
-date: 2023/10/31
+date: '2023-10-31'
 logsource:
   category: proxy
 detection:

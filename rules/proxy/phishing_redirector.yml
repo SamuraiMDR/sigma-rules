@@ -8,8 +8,8 @@ description: >-
   IP address in Azure AD / Entra ID logs.
 status: test
 author: NTT Security - Patrik Olson, Ramine Etow
-date: 2024-08-13
-modified: 2024-08-13
+date: '2024-08-13'
+modified: '2024-08-13'
 logsource:
   category: proxy
 detection:

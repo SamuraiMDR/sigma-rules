@@ -3,8 +3,8 @@ id: fc9583b5-06c0-411f-aca7-982917801a7b
 description: Detects Lumma stealer exfiltration traffic
 status: experimental
 author: NTT Security - Amata Anantaprayoon
-date: 2023/06/20
-modified: 2023/08/15
+date: '2023-06-20'
+modified: '2023-08-15'
 references:
   - https://malpedia.caad.fkie.fraunhofer.de/details/win.lumma
   - https://app.any.run/tasks/c1c2695d-b0b0-464f-a4e3-71b017d9ff9b/

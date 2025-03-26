@@ -3,7 +3,7 @@ id: 97c14fc0-ea20-4ef3-b740-0a4624276806
 description: Dropbox is a filehosting service used to host files which can have a malicious purpose
 status: stable
 author: NTT Security - Axel Olsson
-date: 2022/08/08
+date: '2022-08-08'
 references:
   - https://unit42.paloaltonetworks.com/cloaked-ursa-online-storage-services-campaigns/
 logsource:

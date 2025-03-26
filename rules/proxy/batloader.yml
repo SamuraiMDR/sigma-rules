@@ -8,7 +8,7 @@ references:
   - 0bbc90d442d216669fd9a511b319f91adfccad27110667b2dc22f914bdda559d
   - 56b5e3a9f1a4706428a32fc7480e4b480ef46b9307d85639cba1c0acf615ad51
   - 5ba6fbbfebbc31b41ecca7e2669b1dda41839a571b672d6ac430b291974a03a5
-date: 2023/08/15
+date: '2023-08-15'
 logsource:
     category: proxy
 detection:

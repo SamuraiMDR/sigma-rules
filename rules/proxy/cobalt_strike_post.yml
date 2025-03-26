@@ -3,8 +3,8 @@ id: b923f7d6-ac89-4a50-a71a-900fb846b4aa8
 description: Detects common URI combos seen used by CobaltStrike during http POST requests for C2 communication 
 status: stable
 author: NTT Security - Axel Olsson
-date: 2021/10/20
-modified: 2023/08/28
+date: '2021-10-20'
+modified: '2023-08-28'
 references:
     - None
 logsource:

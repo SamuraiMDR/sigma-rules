@@ -3,7 +3,7 @@ id: 5a692870-01a7-4b33-b054-6b9dafb84322
 description: Potential credential exfiltration from an HTML phishing attachment
 status: stable
 author: NTT Security - Patrik Olson
-date: 2023/05/24
+date: '2023-05-24'
 logsource:
     category: proxy
 detection:

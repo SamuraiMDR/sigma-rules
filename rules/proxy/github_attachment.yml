@@ -6,7 +6,7 @@ references:
   - https://x.com/Ax_Sharma/status/1781706435115491409
 status: test
 author: NTT Security - Kim Bokholm, Ramine Etow, Patrik Olson
-date: 2024/04/22
+date: '2024-04-22'
 logsource:
   category: proxy
 detection:

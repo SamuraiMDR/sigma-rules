@@ -6,8 +6,8 @@ references:
   - https://malpedia.caad.fkie.fraunhofer.de/details/win.pikabot
   - https://github.com/pr0xylife/Qakbot/blob/main/Qakbot_bmw01_25.01.2024.txt
 author: NTT Security - Robin Hellsten, Patrik Olson, Amata Anantaprayoon
-date: 2023/05/23
-modified: 2024/01/26
+date: '2023-05-23'
+modified: '2024-01-26'
 logsource:
     category: proxy
 detection:

@@ -3,8 +3,8 @@ id: a051ea7b-fe0e-4f29-8852-1d71e739e3fd
 description: Searches for security tool associated strings in requests for file downloads
 status: stable
 author: NTT Security - Axel Olsson
-date: 2022/09/02
-modified: 2023/10/31
+date: '2022-09-02'
+modified: '2023-10-31'
 logsource:
     category: proxy
 detection:

@@ -6,8 +6,8 @@ description: >-
   retrieving the company's favicon from Google.
 status: test
 author: NTT Security - Ramine Etow
-date: 2024-08-14
-modified: 2024-08-16
+date: '2024-08-14'
+modified: '2024-08-16'
 logsource:
     category: proxy
 detection:

@@ -3,7 +3,7 @@ id: 25124754-2631-48b1-a2d7-26022e91e59c
 description: DonPapi, tool for dumping DPAPI credentials observed
 status: stable
 author: NTT Security - Robin Hellsten
-date: 2022/10/20
+date: '2022-10-20'
 references:
   - https://unit42.paloaltonetworks.com/ransom-cartel-ransomware/
 logsource:

@@ -6,7 +6,7 @@ references:
   - 'https://urlscan.io/result/3e8ac28c-c0ab-470a-ac1a-e5c9ded2631d/'
   - 'https://urlscan.io/search/#page.domain%3Aview.genial.ly%20page.url%3A%2F.*-proposal%2F'
 author: NTT Security - Ramine Etow, Patrik Olson
-date: 2023/09/13
+date: '2023-09-13'
 logsource:
   category: proxy
 detection:
