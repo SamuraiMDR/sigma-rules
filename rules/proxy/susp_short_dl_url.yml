@@ -3,8 +3,8 @@ id: e9b0c604-707b-44e2-a87c-fbf390eaf8ef
 description: Suspiciously short download URL of anomalous style commonly seen during malicious activity.
 status: stable
 author: NTT Security - Axel Olsson
-date: 2022/09/06
-modified: 2023/10/31
+date: '2022-09-06'
+modified: '2023-10-31'
 logsource:
   category: proxy
 detection:

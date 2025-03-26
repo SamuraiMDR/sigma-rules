@@ -3,8 +3,8 @@ id: 32b3054c-762f-4e7f-b604-524548e5da00
 description: URL containing potential email address, on a domain that has been known to redirect users to phishing sites.
 status: test
 author: NTT Security - Leandro Ferreira, Patrik Olson
-date: 2023/07/04
-modified: 2023/12/04
+date: '2023-07-04'
+modified: '2023-12-04'
 logsource:
   category: proxy
 detection:

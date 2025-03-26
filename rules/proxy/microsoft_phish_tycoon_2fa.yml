@@ -9,8 +9,8 @@ references:
   - https://www-msxfaq-de.translate.goog/cloud/security/qrcode_phishing_mit_microsoft_365.htm?_x_tr_sl=auto&_x_tr_tl=en
 status: stable
 author: NTT Security - Patrik Olson
-date: 2024/05/06
-modified: 2024/05/23
+date: '2024-05-06'
+modified: '2024-05-23'
 logsource:
   category: proxy
 detection:

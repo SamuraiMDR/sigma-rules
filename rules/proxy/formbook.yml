@@ -3,7 +3,7 @@ id: 3d9cc43f-1897-4955-b959-9d184021ca19
 description: Detects URI combos used by Formbook/Xloader
 status: stable
 author: NTT Security - Amata Anantaprayoon
-date: 2023/06/19
+date: '2023-06-19'
 references:
   - https://malpedia.caad.fkie.fraunhofer.de/details/win.formbook
   - https://www.malware-traffic-analysis.net/2023/06/13/index.html

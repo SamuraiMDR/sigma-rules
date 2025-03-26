@@ -6,8 +6,8 @@ references:
   - https://malpedia.caad.fkie.fraunhofer.de/details/win.wikiloader
 status: stable
 author: NTT Security - Patrik Olson
-date: 2023/11/29
-modified: 2023/11/29
+date: '2023-11-29'
+modified: '2023-11-29'
 tags:
   - attack.command_and_control
 logsource:

@@ -4,8 +4,8 @@ description: CloudflareD establishes a reverse tunnel to CloudFlare that exposes
   services to the internet, bypassing ingress firewall rules. Has been abused by threat actors as a C2 channel.
 status: test
 author: NTT Security - Patrik Olson
-date: 2024/03/04
-modified: 2024/03/05
+date: '2024-03-04'
+modified: '2024-03-05'
 references:
   - https://www.guidepointsecurity.com/blog/tunnel-vision-cloudflared-abused-in-the-wild/
   - https://blog.bushidotoken.net/2023/09/tracking-adversaries-akira-another.html # Akira has used cloudflared to tunnel C2 traffic

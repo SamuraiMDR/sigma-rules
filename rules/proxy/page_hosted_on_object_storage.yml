@@ -3,8 +3,8 @@ id: 9e352642-d557-4e84-ba30-ddac9d613700
 description: Suspicious html page hosted on Object Storage Services. Often Maliscious/Phishing
 status: experimental
 author: NTT Security - Leandro Ferreira, Ramine Etow, Kim Bokholm
-date: 2024/02/15
-modified: 2024/02/15
+date: '2024-02-15'
+modified: '2024-02-15'
 logsource:
   category: proxy
 detection:

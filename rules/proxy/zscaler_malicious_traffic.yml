@@ -3,8 +3,8 @@ id: ee917445-1684-497a-a762-bc54a4b3f147
 description: Zscaler IPS malicious proxy traffic observed
 status: experimental
 author: NTT Security - Axel Olsson
-date: 2024/01/05
-modified: 2024/01/05
+date: '2024-01-05'
+modified: '2024-01-05'
 logsource:
   category: proxy
 detection:

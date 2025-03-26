@@ -5,8 +5,8 @@ references:
   - https://arista.my.site.com/AristaCommunity/s/article/Forensic-Investigation-of-the-MEGAcmd-Client#Comm_Kna_ka02I000000brf8QAA_92
 status: stable
 author: NTT Security - Patrik Olson
-date: 2024/02/16
-modified: 2024/03/04
+date: '2024-02-16'
+modified: '2024-03-04'
 logsource:
   category: firewall
 detection:

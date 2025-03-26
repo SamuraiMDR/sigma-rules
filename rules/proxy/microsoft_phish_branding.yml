@@ -3,7 +3,7 @@ id: 613b41c9-c48c-41ef-9e0d-f3e2477de978
 description: Investigate cs-referer for potential phishing page
 status: test
 author: NTT Security - Patrik Olson
-date: 2023/06/18
+date: '2023-06-18'
 logsource:
     category: proxy
 detection:

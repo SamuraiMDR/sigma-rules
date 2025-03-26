@@ -3,7 +3,7 @@ id: 8a631bd3-876c-4c51-9652-ceda607a2cb1
 description: Cloudflare redirectors have historically been utilized as C2 channels.
 status: experimental
 author: NTT Security - Patrik Olson, Axel Olsson
-date: 2023/12/18
+date: '2023-12-18'
 references:
   - https://www.rapid7.com/blog/post/2023/09/29/etr-critical-vulnerabilities-in-ws_ftp-server/
   - https://securityaffairs.com/99640/malware/covid-19-attack-cloudflare-c2.html

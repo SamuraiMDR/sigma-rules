@@ -12,8 +12,8 @@ description: >-
   registered and not parked, and examine the contents of the file if it exists.
 status: stable
 author: NTT Security - Axel Olsson, Patrik Olson
-date: 2023/08/29
-modified: 2023/11/29
+date: '2023-08-29'
+modified: '2023-11-29'
 references:
   - https://en.wikipedia.org/wiki/Web_Proxy_Auto-Discovery_Protocol
   - https://www.sentinelone.com/blog/in-the-wild-wpad-attack-how-threat-actors-abused-flawed-protocol-for-years/

@@ -3,8 +3,8 @@ id: 276a572d-1250-4781-b8fe-2552fd610004
 description: Fake "cleaning" software seen distributing malware, such as ficker stealer
 status: stable
 author: NTT Security - Robin Hellsten
-date: 2021/10/20
-modified: 2022/03/17
+date: '2021-10-20'
+modified: '2022-03-17'
 references:
     - https://medium.com/csis-techblog/gcleaner-garbage-provider-since-2019-2708e7c87a8a
 logsource:

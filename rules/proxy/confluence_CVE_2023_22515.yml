@@ -3,7 +3,7 @@ id: 5181cae2-0e19-492a-a9c2-4916aa2dbcd8
 description: Vulnerability allows creation of admin accounts without authorization
 status: stable
 author: NTT Security - Axel Olsson
-date: 2023/10/17
+date: '2023-10-17'
 references:
   - https://github.com/Chocapikk/CVE-2023-22515
   - https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html

@@ -3,8 +3,8 @@ id: c67ed899-a5d8-4a13-97ce-7ee3ceb2d487
 description: It is common for phishing lures to be served from S3 buckets of various cloud providers
 status: stable
 author: NTT Security - Patrik Olson
-date: 2022/10/17
-modified: 2023/05/16
+date: '2022-10-17'
+modified: '2023-05-16'
 logsource:
     category: proxy
 detection:

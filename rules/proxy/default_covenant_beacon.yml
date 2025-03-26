@@ -3,8 +3,8 @@ id: 07793b33-09c4-48e1-95a7-cd2e7f4ef31c
 description: Detects URI combos used by Covenant
 status: stable
 author: NTT Security - Robin Hellsten
-date: 2021/11/05
-modified: 2022/03/17
+date: '2021-11-05'
+modified: '2022-03-17'
 references:
     - https://github.com/cobbr/Covenant/blob/c53155615563cf68979820356b8430e4eb01207d/Covenant/Data/Profiles/DefaultHttpProfile.yaml
 logsource:

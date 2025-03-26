@@ -3,8 +3,8 @@ id: a8926206-42c8-4e85-a81a-48aba3c4752e
 description: Gootloader leverages compromised WordPress sites for C2 redirection
 status: test
 author: NTT Security - Patrik Olson
-date: 2023/11/30
-modified: 2023/11/30
+date: '2023-11-30'
+modified: '2023-11-30'
 references:
   - https://securityintelligence.com/x-force/gootbot-gootloaders-new-approach-to-post-exploitation/
 logsource:

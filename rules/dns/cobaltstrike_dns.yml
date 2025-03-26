@@ -3,7 +3,7 @@ id: 7d485001-d8d4-4218-b146-11279cedd398
 description: Detects DNS traffic towards domain in format as specified in malleable profile and reference tools.
 status: stable
 author: NTT Security - Axel Olsson
-date: 2022/08/04
+date: '2022-08-04'
 references:
     - https://github.com/threatexpress/malleable-c2/blob/master/jquery-c2.4.3.profile#L205
     - https://github.com/bluscreenofjeff/Malleable-C2-Randomizer/blob/master/Sample%20Lists/dns_stager_subhost.txt

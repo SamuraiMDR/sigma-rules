@@ -4,8 +4,8 @@ description: Could indicate privilege escalation or persistence. Look for suspic
   activity or odd account name.
 status: stable
 author: NTT Security - Nils Hult
-date: 2024/02/14
-modified: 2024/02/14
+date: '2024-02-14'
+modified: '2024-02-14'
 logsource:
   category: windows
 detection:

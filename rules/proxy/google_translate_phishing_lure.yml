@@ -3,7 +3,7 @@ id: 910e7e3d-794c-4ec2-b94f-9cbb1857b50c
 description: It is common for phishing lures to be served from IPFS or object storage services, using Google Translate as a proxy
 status: stable
 author: NTT Security - Patrik Olson
-date: 2022/11/21
+date: '2022-11-21'
 logsource:
     category: proxy
 detection:

@@ -8,8 +8,8 @@ description: >-
   It can also detect a subdomain pattern commonly used by EvilProxy.
 status: test
 author: NTT Security - Axel Olsson, Amata Anantaprayoon, Patrik Olson
-date: 2023-12-09
-modified: 2024-08-16
+date: '2023-12-09'
+modified: '2024-08-16'
 logsource:
   category: proxy
 references:

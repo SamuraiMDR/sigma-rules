@@ -4,7 +4,7 @@ status: experimental
 description: Detect HTTP traffic over anomalous ports, TA416 has been observed to tunnel SSH traffic through HTTPS over port 22.
 status: stable
 author: NTT Security - Axel Olsson
-date: 2023/02/15
+date: '2023-02-15'
 logsource:
     category: proxy
 detection:

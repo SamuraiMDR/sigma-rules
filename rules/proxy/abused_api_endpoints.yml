@@ -3,8 +3,8 @@ id: 6e9e83f8-202a-4792-9f2d-380f899b3105
 description: Legitimate API services sometimes abused for C2 communication. Correlate in events and look for cyclic traffic.
 status: stable
 author: NTT Security - Patrik Olson, Axel Olsson
-date: 2023/08/17
-modified: 2024/02/23
+date: '2023-08-17'
+modified: '2024-02-23'
 references:
   - https://blog.eclecticiq.com/german-embassy-lure-likely-part-of-campaign-against-nato-aligned-ministries-of-foreign-affairs # Zulip
   - https://blog.cluster25.duskrise.com/2022/09/23/in-the-footsteps-of-the-fancy-bear-powerpoint-graphite/ # Microsoft Graph API
