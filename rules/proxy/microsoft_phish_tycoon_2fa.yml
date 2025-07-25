@@ -1,26 +1,32 @@
 title: Tycoon 2FA Microsoft Phishing-as-a-Service
 id: 6ff81703-9a0f-4f6b-b3a9-e59a0d1baef7
 description: >-
-  Detects websocket uri path used by Tycoon 2FA. Credentials are exfiltrated inside websocket messages,
-  so verifying leakage is difficult.
+  Detects URL patterns used by Tycoon 2FA
 references:
+  # (Older) socket.io variant
   - https://blog.sekoia.io/tycoon-2fa-an-in-depth-analysis-of-the-latest-version-of-the-aitm-phishing-kit/
   - https://www.msxfaq.de/cloud/security/qrcode_phishing_mit_microsoft_365.htm
   - https://www-msxfaq-de.translate.goog/cloud/security/qrcode_phishing_mit_microsoft_365.htm?_x_tr_sl=auto&_x_tr_tl=en
-status: stable
+status: test
 author: NTT Security - Patrik Olson
-date: '2024-05-06'
-modified: '2024-05-23'
+date: 2024-05-06
+modified: 2025-07-25
 logsource:
   category: proxy
 detection:
-  selection:
-    c-uri|startswith:
-      - /web6socket/socket.io/
-      - /web8socket/socket.io/
-  condition: selection
+  selection_socketio:
+    uri_path|startswith:
+      - '/web6socket/socket.io/'
+      - '/web8socket/socket.io/'
+  selection_post_pattern:
+    http_method|cased: POST
+    uri_path|re: '^/[A-Za-z0-9]{20,35}[A-Z]{32}[A-Za-z0-9]{20,35}\b'
+  selection_get_pattern:
+    http_method|cased: GET
+    uri_query|re: '^id=([a-f0-9]{8,20}-){8,16}[a-f0-9]{8,20}$'
+  condition: 1 of selection_*
 falsepositives:
-  - The user might not have entered any credentials on the phishing page. Correlate in auth logs, look for suspicious logons
+  - The user might not have entered any credentials on the phishing page. Correlate in logs, look for suspicious logons
 level: medium
 tags:
   - attack.initial_access
