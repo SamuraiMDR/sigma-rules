@@ -1,0 +1,28 @@
+title: Data Exfiltration using Veiltransfer
+id: 8c0ab44f-1178-4f41-a573-50a114724959
+status: test
+description: Detects veiltransfer execution even if the binary has had its name changed
+references:
+    - https://github.com/infosecn1nja/VeilTransfer
+author: NTT Security - Andreas Foureaux
+date: 2025-07-28
+tags:
+    - attack.exfiltration
+logsource:
+    product: endpoint
+detection:
+    selection_os_windows:
+        eventcategory: process_creation
+    selection_os_linux:
+        src_os: linux
+    selection_command:
+        command|contains|all:
+            - 'transfer'
+            - 'localPath'
+    selection_binary:
+        image|endswith:
+            'veiltransfer.exe'
+    condition: 1 of selection_os* and (selection_command or selection_binary)
+falsepositives:
+    - Unlikely
+level: high
