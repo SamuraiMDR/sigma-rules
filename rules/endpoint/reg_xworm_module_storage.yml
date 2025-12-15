@@ -1,0 +1,22 @@
+title: Xworm Storage of Modules in registry
+id: 2ce3df91-81c7-4327-92ef-dd748957dbcb
+description: Detects Xworm registry operations in relation to the storage of implant
+  plugins
+status: stable
+author: Leandro Ferreira
+references:
+  - https://vx-underground.org/Builders/XWorm/XWorm%20V6.0
+  - https://thehackernews.com/2025/10/xworm-60-returns-with-35-plugins-and.html
+date: 2025-12-12
+modified: 2025-12-12
+logsource:
+  category: endpoint
+detection:
+  selection:
+    registry_key|re: '(?i)Software\\[A-F0-9]{20}\\[A-F0-9]{64}$'
+    registry_value: 'Binary Data'
+    change_type: 'CREATE'
+  condition: selection
+falsepositives:
+- Legitimate applications that so happen to make use of this pattern
+level: high
