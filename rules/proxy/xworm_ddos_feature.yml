@@ -2,7 +2,7 @@ title: Xworm Application Layer DDoS Feature
 id: c3225cc7-66a1-435a-a093-26be8655b2cd
 description: Detects HTTP DDoS feature built in to Xworm. Based on hardcoded characteristics
   of these requests.
-status: experimental
+status: stable
 author: Leandro Ferreira
 references:
   - https://vx-underground.org/Builders/XWorm/XWorm%20V6.0
