@@ -3,7 +3,7 @@ id: cb42109e-9c68-4ae6-bac2-1b8224b60f3d
 description: Detects XWorm anti-analysis module. More specifically when Xworm makes
   a call towards a IP Intellegence service and check wether the external ip address
   is demeed as hosting.
-status: experimental
+status: stable
 author: Leandro Ferreira
 references:
   - https://vx-underground.org/Builders/XWorm/XWorm%20V6.0
@@ -18,7 +18,6 @@ detection:
     url_host: 'ip-api.com'
     uri_path: '/line/'
     uri_scheme: 'http'
-    #These 2 conditions queries can be switched on if too many falsepositives
     uri_query: 'fields=hosting'
     http_user_agent: null
   condition: selection
