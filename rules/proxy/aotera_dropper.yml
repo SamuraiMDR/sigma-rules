@@ -1,0 +1,25 @@
+title: Aotera_Dropper
+id: b8c8f53a-9520-4289-a6ce-a725c1567b35
+description: >
+  New Dropper (Oct 2025). The malware appears to use the open-source project Donut
+  to load a 2nd stage payload into memory. Detects requests to specific URI
+  patterns observed in campaign telemetry.
+status: experimental
+author: Kim Bokholm, Amata Anantaprayoon
+date: 2026-01-14
+modified: 2026-01-14
+logsource:
+  category: proxy
+detection:
+  selection_uri_initial_infection:
+    uri_path|re: '^/new/log/[0-9a-fA-F]{8}/(?:success/\d{10}|startLoader/\d{10}|startCrypt)$'
+  selection_uri_2ndstage:
+    uri_path|re: '^/n(?:front|back)\.php$'
+  condition: selection_uri_initial_infection or selection_uri_2ndstage
+falsepositives:
+  - Web application endpoints that legitimately use matching paths
+level: high
+tags:
+  - attack.command_and_control
+references:
+  - https://www.joesandbox.com/analysis/1795404/1/html#HTTP_Packets
