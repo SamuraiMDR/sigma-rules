@@ -4,7 +4,7 @@ description: Execution of NirCmd screenshot feature observed in OT intrusions by
 references:
 - https://cert.pl/uploads/docs/CERT_Polska_Energy_Sector_Incident_Report_2025.pdf
 - https://www.nirsoft.net/utils/nircmd.html
-status: experimental
+status: stable
 author: Axel Olsson
 date: 2026-02-04
 modified: 2026-02-04
