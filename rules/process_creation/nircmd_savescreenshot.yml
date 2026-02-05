@@ -1,0 +1,22 @@
+title: NirCmd savescreenshot execution
+id: 15385f73-df36-4b01-90a1-bdc4e4885bb7
+description: Execution of NirCmd screenshot feature observed in OT intrusions by Russian APT groups
+references:
+- https://cert.pl/uploads/docs/CERT_Polska_Energy_Sector_Incident_Report_2025.pdf
+- https://www.nirsoft.net/utils/nircmd.html
+status: experimental
+author: Axel Olsson
+date: 2026-02-04
+modified: 2026-02-04
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    image|endswith:
+    - \nircmd.exe
+    command|contains: savescreenshot
+  condition: selection
+falsepositives:
+- Legitimate usage of NirCmd
+level: medium
