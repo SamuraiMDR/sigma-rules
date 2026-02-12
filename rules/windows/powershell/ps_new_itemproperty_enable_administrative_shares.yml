@@ -1,0 +1,27 @@
+title: Powershell New-ItemProperty Enable Administrative Shares
+id: d777149e-dd75-4498-9901-a6019ab647cd
+description: Usage of New-ItemProperty to enable administrative shares. This behavior was observed
+  in the Russian APT attack on Polish OT-Infrastructure.
+references:
+- https://cert.pl/uploads/docs/CERT_Polska_Energy_Sector_Incident_Report_2025.pdf
+- https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty
+status: stable
+author: Axel Olsson
+date: 2026-02-12
+modified: 2026-02-12
+logsource:
+  product: windows
+  category: ps_script
+detection:
+  selection:
+    script_block|contains|all:
+    - New-ItemProperty
+    - HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
+    - -Value 1
+    script_block|contains:
+    - AutoShareWks
+    - AutoShareServer
+  condition: selection
+falsepositives:
+- Legitimate administrative activity
+level: medium
