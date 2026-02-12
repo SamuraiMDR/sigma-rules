@@ -1,0 +1,37 @@
+title: Cloud Storage Traffic by Unknown Process
+id: ffc2ca97-6189-4bd0-a981-72726e32f47a
+description: |-
+  Somewhat obscure cloud storage services that has been abused by malware as a C2 channel.
+references:
+  - https://blog.sekoia.io/apt28-operation-phantom-net-voxel/
+  - https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit
+status: test
+author: NTT Security - Patrik Olson
+date: 2026-02-09
+logsource:
+  product: windows
+  category: network_connection
+detection:
+  selection_url:
+    - url_host:
+      - app.koofr.net
+      - api.icedrive.net
+    - url_host|re:
+      - '^(gateway|ingest|egest)\.(filen\.io|filen\.net|filen-[0-9]+\.net)$'
+  filter_known_software:
+    - image|endswith:
+      - '\chrome.exe'
+      - '\msedge.exe'
+      - '\firefox.exe'
+      - '\vivaldi.exe'
+  filter_os:
+    src_os|contains:
+      - nix
+      - mac
+  condition: all of selection_* and not 1 of filter_*
+falsepositives:
+  - Benign software, web browsers, ...
+level: medium
+tags:
+  - attack.command-and-control
+  - attack.t1102

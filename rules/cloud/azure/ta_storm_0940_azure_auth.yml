@@ -1,0 +1,23 @@
+title: Login by Storm-0940 Threat Actor
+id: a4b0a3ae-cdc3-40b2-a393-321fb3415c27
+description: A logon with application ID and user agent used by the threat actor tracked as Storm-0940
+references:
+  - https://www.microsoft.com/en-us/security/blog/2024/10/31/chinese-threat-actor-storm-0940-uses-credentials-from-password-spray-attacks-from-a-covert-network/
+status: test
+author: NTT Security - Kim Bokholm
+date: 2024-11-07
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    AppId|cased:
+      - 1950a258-227b-4e31-a9cf-717495945fc2 # Microsoft Azure PowerShell
+      - 00000003-0000-0000-c000-000000000000 # Microsoft Graph
+    userAgent:
+      - "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko"
+      - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+  condition: selection
+falsepositives:
+- Unknown
+level: high

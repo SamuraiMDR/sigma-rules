@@ -1,0 +1,38 @@
+title: Sensitive File Upload
+id: 44a88643-7ccc-4893-be1e-ed19a26e4888
+description: Detects upload of potentially sensitive files known to be targets for exfiltration
+status: stable
+author: NTT Security - Patrik Olson, Axel Olsson
+date: 2024-08-13
+modified: 2024-09-08
+logsource:
+  product: zscaler
+  service: zia
+detection:
+  selection:
+    - file_name:
+      # Registry hives
+      - SYSTEM
+      - SYSTEM.dat
+      - SECURITY
+      - SECURITY.dat
+      - SAM
+      - SAM.dat
+      - NTUSER
+      - NTUSER.dat
+      # https://github.com/ricardojoserf/TrickDump
+      - lock.json
+      - shock.json
+      - barrel.json
+      - barrel.zip
+    - file_name|contains:
+      - ntds.dit # Active Directory database
+      - lsass.dmp # LSASS memory dump
+      - lsass.exe.dmp # LSASS memory dump
+      - .kirbi # Kerberos ticket
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
+tags:
+  - mitre.exfiltration

@@ -1,0 +1,22 @@
+title: Suspicious SharePoint Query
+id: 634cb49d-2509-4dfd-abb5-a592d9b63810
+description: Searching for sensitive files on SharePoint, might indicate an attacker
+  looking for sensitive data.
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-04-02
+modified: 2024-05-24
+logsource:
+  product: azure
+  service: sharepoint
+detection:
+  selection:
+    Operation|cased: SearchQueryPerformed
+    SearchQueryText|contains:
+      - password
+      - kdbx # Keepass database
+      - backup
+  condition: selection
+falsepositives:
+  - Likely. Check IP reputation, do log/alert correlation to look for other suspicious activity
+level: medium

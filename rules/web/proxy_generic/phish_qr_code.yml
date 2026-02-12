@@ -1,0 +1,21 @@
+title: QR Code Phish
+id: 7eac05f5-2173-4875-bb2e-456f419f162b
+description: >-
+  URL pattern observed in phishing documents containing QR codes for the user to scan
+references:
+  - https://www.virustotal.com/gui/file/f3390d9d9614ff905b1cbca770ca22d45f7aac47efd11027d5125694ad50e66f/behavior
+status: stable
+author: NTT Security - Patrik Olson
+date: 2024-09-07
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host|endswith: '.workers.dev'
+    cs-uri-query|contains: 'qrc='
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
+tags:
+  - attack.initial-access

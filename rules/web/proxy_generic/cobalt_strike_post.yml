@@ -1,5 +1,5 @@
 title: Common POST URI Combos used by CobaltStrike during C2 communication
-id: b923f7d6-ac89-4a50-a71a-900fb846b4aa8
+id: b923f7d6-ac89-4a50-a71a-900fb846b4aa
 description: Detects common URI combos seen used by CobaltStrike during http POST requests for C2 communication 
 status: stable
 author: NTT Security - Axel Olsson

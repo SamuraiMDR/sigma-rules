@@ -1,0 +1,34 @@
+title: Microsoft Oauth2 Phish
+id: 663def8a-9dbf-49be-89a2-c85b8ea6e0fc
+description: |-
+  Attempts to identify a suspicious scope or redirect_uri in
+  oauth2 authentication flows.
+references:
+  - https://www.volexity.com/blog/2025/04/22/phishing-for-codes-russian-threat-actors-target-microsoft-365-oauth-workflows/
+status: test
+author: NTT Security - Patrik Olson
+date: 2025-04-23
+logsource:
+  category: proxy
+detection:
+  selection_base:
+    cs-host|cased: login.microsoftonline.com
+    cs-uri-stem|contains|cased|all:
+      - oauth2
+      - authorize
+    cs-uri-query|contains|all:
+      - 'login_hint=' # victim email address
+      - 'redirect_uri=' # the url that will receive the authentication token
+  selection_suspicious_scope:
+    cs-uri-query|contains:
+      - 'graph.microsoft.com/.default&'
+      - 'graph.microsoft.com%2F.default&'
+      - 'graph.microsoft.com&'
+  selection_suspicious_redirect_uri:
+    cs-uri-query|contains:
+      - 'vscode-redirect.azurewebsites.net'
+      - 'insiders.vscode.dev'
+  condition: selection_base and 1 of selection_suspicious_*
+falsepositives:
+  - Unknown
+level: medium

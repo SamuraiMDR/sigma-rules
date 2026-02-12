@@ -1,0 +1,33 @@
+title: FTP Sensitive File Download
+id: b93fec22-98fb-48b3-9fd7-cfdc152dbc9a
+description: Potentially sensitive file downloaded over FTP
+status: stable
+author: NTT Security - Patrik Olson
+date: 2024-07-20
+modified: 2026-02-12
+logsource:
+  category: firewall
+references:
+  # Cisco ASA
+  - https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/asa-syslog/syslog-messages-302003-to-342008.html#con_8244007
+detection:
+  ftp_download_cisco_asa:
+    raw|contains|all:
+      - '303002'
+      - 'Retrieved'
+  sensitive_file:
+    - file_name|endswith:
+      - .htpasswd
+      - .bash_history
+      - .env
+      - .json
+      - id_rsa
+      - id_ecdsa
+    - file_name|contains:
+      - /.ssh/
+      - /.config/
+      - .pwd
+  condition: 1 of ftp_download* and sensitive_file
+falsepositives:
+- Unknown
+level: medium

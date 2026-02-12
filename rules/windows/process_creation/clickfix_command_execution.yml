@@ -1,0 +1,23 @@
+title: ClickFix Command Execution
+id: d3b99c23-2d06-41c4-a25b-84b13df6bfd4
+status: test
+description: Detects a variant of ClickFix where the user is tricked into running a malicious command as part of "verfification"
+references:
+  - https://redcanary.com/blog/threat-intelligence/intelligence-insights-september-2025/
+author: NTT Security - Andreas Foureaux
+date: 2025-10-05
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_cmd_image:
+    Image|endswith: '\cmd.exe'
+    ParentImage|endswith: '\explorer.exe'
+  selection_cmd_command:
+    - CommandLine|contains|all:
+      - 'start'
+      - 'exit'
+  condition: all of selection_cmd*
+falsepositives:
+  - Unlikely
+level: high

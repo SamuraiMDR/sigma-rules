@@ -1,0 +1,23 @@
+title: Fake PEM Certificate Written to Registry
+id: e2ee1c85-642f-44ed-94f3-c45c8ada1e47
+description: >-
+  Some malware stores base64 payloads in the registry disguised as PEM certificates, so
+  they can be decoded with certutil.exe. A valid PEM certificate should start with MII...
+  Decode the base64 payload and/or investigate why this key was created.
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-08-19
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection_pem:
+    Details|startswith: '-----BEGIN CERTIFICATE-----'
+  filter_valid_pem:
+    Details|contains|cased: 'MII'
+  condition: selection_pem and not filter_valid_pem
+falsepositives:
+  - Unknown
+level: medium
+tags:
+  - attack.defense-evasion

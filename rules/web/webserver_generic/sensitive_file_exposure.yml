@@ -1,0 +1,26 @@
+title: Sensitive File Exposed on Web Server
+id: 76f2b262-e158-4644-aae8-b0de0fcf8854
+description: Detects potentially sensitive files downloaded from a web server
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-05-21
+modified: 2026-02-12
+logsource:
+  category: webserver
+detection:
+  file_exists:
+    status: 200
+  file_is_sensitive:
+    - cs-uri|contains:
+      - .bak
+      - .env
+      - .sql
+      - /.git/
+  condition: file_exists and file_is_sensitive
+falsepositives:
+  - Some web servers log status as 200 even if the file doesn't exist. Visit the URL to verify
+tags:
+  - attack.initial-access
+  - attack.t1595
+  - attack.t1594
+level: medium

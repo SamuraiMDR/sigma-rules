@@ -1,0 +1,18 @@
+title: Potential MacSync C2 traffic
+id: 0e5690a9-8d53-45bd-b9d5-7c18bcaf1d4e
+description: >-
+  InfoStealer targeting MacOS. Detects requests to sepecific URI patterns
+  observed in recent compaign telemetry.
+status: stable
+author: NTT Security - Amata Anantaprayoon
+date: 2026-02-11
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-uri|startswith: /dynamic
+    c-uri|re: 'txd=[0-9a-fA-F]{64}$'
+  condition: selection
+falsepositives:
+- Web application endpoints that legitimately use matching paths
+level: critical

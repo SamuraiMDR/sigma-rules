@@ -1,0 +1,25 @@
+title: Vertex RAT
+id: 369292df-dfe7-462d-b6ab-4b2d540850aa
+description: Patterns observed in Vertex RAT C2 traffic
+status: test
+author: NTT Security - Patrik Olson
+date: 2025-11-25
+references:
+  - https://www.virustotal.com/gui/file/357f209134726e0f42febd8edb0babed6925489255746022e20df2e79ecf9a0d/behavior
+logsource:
+  category: proxy
+detection:
+  selection_uri:
+    cs-uri-stem|endswith:
+      - '/tasks.php'
+      - '/adduser.php'
+    cs-uri-query|contains:
+      - 'uid='
+      - 'lan='
+      - 'cmpname='
+  selection_agent:
+    cs-user-agent|cased: 'V32'
+  condition: 1 of selection_*
+falsepositives:
+  - Unknown
+level: medium

@@ -1,0 +1,24 @@
+title: TokenFlare Phishing Kit
+id: 7626e908-3d98-43b3-b6f7-2fa7da94cebd
+description: |-
+  TokenFlare is an attacker-in-the-middle phishing kit targeting Microsoft / Entra ID.
+  It's open source and built to be deployed as a Cloudflare Worker.
+references:
+  - https://github.com/JumpsecLabs/TokenFlare#easy-iocs-for-blue-teams
+  - https://labs.jumpsec.com/tokenflare-serverless-AiTM-phishing-in-under-60-seconds/
+status: test
+author: NTT Security - Kim Bokholm, Patrik Olson
+date: 2026-02-09
+logsource:
+  product: azure
+  category: sigininlogs
+detection:
+  selection:
+    userAgent|startswith: 'TokenFlare/'
+  condition: selection
+falsepositives:
+  - Unlikely
+level: medium
+tags:
+  - attack.initial-access
+  - attack.t1566.002

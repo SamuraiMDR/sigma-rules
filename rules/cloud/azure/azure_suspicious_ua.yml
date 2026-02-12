@@ -1,0 +1,23 @@
+title: Suspicious Logon User-Agent
+id: 95745635-ec42-40ed-8cba-4ad815590197
+description: >-
+  Suspicious user-agents that aren't typically observed in authentication events
+references:
+  - https://fieldeffect.com/blog/field-effect-discovers-m365-adversary-in-the-middle-campaign # Axios used in mitm phishing
+status: test
+author: NTT Security - Patrik Olson, Leandro Ferreira
+date: 2024-07-16
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    userAgent|contains:
+      - axios/1.
+  condition: selection
+falsepositives:
+  - Legitimate use of the axios HTTP client as part of some software
+  - Microsoft Power BI
+level: medium
+tags:
+  - attack.initial-access

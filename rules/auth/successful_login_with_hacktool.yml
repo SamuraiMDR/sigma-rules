@@ -1,0 +1,58 @@
+title: Successful Login with Hacktool
+id: f142e6bc-235d-49d0-8db6-458075f98a32
+description: Successful logon with suspicious user-agent, indicating a password spray
+  attack
+status: test
+author: NTT Security - Ramine Etow, Patrik Olson
+date: 2025-01-22
+logsource:
+  category: auth
+detection:
+  selection_logsource:
+    type|cased: AUTH
+    action|cased: A
+  selection_hacktool:
+    - http_user_agent|cased:
+      # Wfuzz, https://github.com/xmendez/wfuzz/blob/1b695ee9a87d66a7d7bf6cae70d60a33fae51541/src/wfuzz/facade.py#L43
+      - 'Wfuzz/*'
+      # fasthttp, https://github.com/valyala/fasthttp/blob/c908d9c1eeb4d725dabaf83b351b845c19163a04/strings.go#L5
+      - 'fasthttp'
+      # ffuf, https://github.com/ffuf/ffuf/blob/de9ac86677818de0743d8db24147c81c96b73a74/pkg/runner/simple.go#L130
+      - 'Fuzz Faster U Fool*'
+      # Sentry MBA default, 94b1bb09a6df6732b6c5c13303cd081768b18dbce44b58eb507c73875a94adf2
+      - 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)'
+      # Sentry MBA UserAgents.ini found in-the-wild, 40f5daa85fc0d44d174b05dac4c2a5fcc219b9e6e8bd170a48999455ee0ba31b
+      - 'Apache-HttpClient/UNAVAILABLE (java 1.4)'
+      - 'Dalvik/1.6.0 (Linux; U; Android 4.4.2; R8007 Build/JLS36C)'
+      - 'Dominos/4.1.0 (Android 4.4.2; OPPO/R8007; en)'
+      - 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)'
+      - 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)'
+      - 'Mozilla/5.0 (Linux; Android 4.4.2; R8007 Build/JLS36C) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+      - 'Mozilla/5.0 (SmartScreens; U; Linux) Metro/AN1.0.0.0.1 0.0.0.1 Rhapsody 736'
+      - 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0'
+      - 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en) AppleWebKit/522.11.3 (KHTML, like Gecko) Version/3.0 Safari/522.11.3'
+      - 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.11) Gecko/2009060215 Firefox/3.0.11'
+      - 'Opera/9.80 (Windows NT 6.0; U; en) Presto/2.2.0 Version/10.00'
+      - 'PJA4.7.6455'
+      - 'Panera/3.86.3 (Android; OPPO/R8007; 4.4.2; release)'
+      - 'RestSharp/105.2.3.0'
+      - 'Sahibinden-Android/3.13.1 (299; Android 4.4.2; OPPO R8007)'
+      - 'Shutterstock Consumer 1.6.2 (OPPO R8007; Android 4.4.2; en_US)'
+      - 'SoundCloud-Android/2017.05.08-release (Android 4.4.2; OPPO R8007)'
+      - 'ULTA/4.6 Android'
+      - 'Windows Gyft/2.3.6 (OPPO R8007; Android 4.4.2; Scale/1.5)'
+      - 'ZooskAndroid/395 (Linux; U; Android 4.4.2; en-US; R8007; Build/JLS36C)'
+      - 'android/4.4.2/OPPO R8007/117/com.rewardable'
+      - 'com.sei.android/2.3.4 Android/4.4.2'
+      - 'okhttp/3.4.2'
+      # Sentry MBA UserAgents.ini found in-the-wild, 79c3ce1ba387d922ce5b0e1edd123831b24551e581ed28e43bb88d4f2e0b56c3
+      - 'Avant Browser (http://www.avantbrowser.com)'
+      - 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)'
+      - 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1) Opera 7.54 [en]'
+      - 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; MyIE2; FDM; .NET CLR 1.1.4322)'
+      - 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de-DE; rv:1.7.5) Gecko/20041122 Firefox/1.0'
+      - 'Mozilla/5.0 (compatible; Konqueror/3.3; Linux) (KHTML, like Gecko)'
+  condition: all of selection_*
+falsepositives:
+  - Unknown
+level: medium

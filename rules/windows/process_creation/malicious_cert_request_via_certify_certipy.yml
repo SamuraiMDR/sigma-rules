@@ -1,0 +1,33 @@
+title: Malicious Certificate Request with Alternate Name via Certify or Certipy
+id: 6b0e5a6a-bf0c-4bbe-ac4b-87e1e7accbd3
+status: stable
+description: >-
+  Detects the use of Certify.exe or Certipy to request a certificate with a
+  specified Subject Alternative Name (SAN). This is a common technique (ESC1)
+  used in AD CS abuse to impersonate other users, often high-privileged ones
+  like Domain Admins, by embedding their identity in the SAN field of a certificate.
+references:
+  - https://redfoxsec.com/blog/exploiting-active-directory-certificate-services-ad-cs/
+author: NTT Security - Ramine Etow
+date: 2025-08-14
+tags:
+  - attack.privilege_escalation
+  - attack.t1649
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_certify:
+    Image|endswith: '\Certify.exe'
+    CommandLine|contains|all:
+      - 'request'
+      - '/altname'
+  selection_certipy:
+    Image|endswith: '\certipy.exe'
+    CommandLine|contains|all:
+      - 'req'
+      - '-alt'
+  condition: 1 of selection_*
+falsepositives:
+  - Legitimate use of these tools by penetration testers or security researchers during authorized testing.
+level: high

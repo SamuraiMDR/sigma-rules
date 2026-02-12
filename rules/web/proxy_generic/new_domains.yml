@@ -1,0 +1,20 @@
+title: Newly Registered Domain
+id: 7d092a85-afc7-4c9a-9b7d-fb358a83ca56
+description: Newly registered domain, could indicate maliciousness
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-08-09
+logsource:
+  category: proxy
+detection:
+  selection:
+    category|contains|cased:
+      - "Newly Observed Domain" # Fortinet
+      - "Newly Registered Domain" # Fortinet
+      - "Newly Registered and Observed Domains" # Zscaler
+      - "Newly Seen Domains" # Cisco
+      - "newly-registered-domain" # Palo Alto
+  condition: selection
+falsepositives:
+- Ads & tracking domains that rotate often to get around adblockers
+level: low

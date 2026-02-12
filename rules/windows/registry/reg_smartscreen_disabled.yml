@@ -1,0 +1,24 @@
+title: Smartscreen Disabled
+id: ccdb251c-d767-495d-ae78-761c2c09cc1a
+description: >-
+  Disabling smartscreen could be done as a defense evasion technique
+  before a malicious binary is executed. Also known as a Mark-of-the-Web
+  (MOTW) bypass.
+references:
+  - https://www.winhelponline.com/blog/bypass-smartscreen-even-if-its-enabled-through-group-policy/
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-08-19
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|endswith: '\NoSmartScreen'
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium
+tags:
+  - attack.defense-evasion
+  - attack.t1553.005

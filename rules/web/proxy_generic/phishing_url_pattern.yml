@@ -1,0 +1,31 @@
+title: Potential Phishing Url
+id: 122f0cc8-9af8-462f-ae8c-5edcb70e5f95
+description: Potential phishing site based on URL pattern
+references:
+  # selection_1
+  - https://unit42.paloaltonetworks.com/rare-phishing-page-delivery-header-refresh/
+  - https://ublockorigin.pages.dev/filters/badware.min.txt
+  # selection_2
+  - https://www.virustotal.com/gui/domain/domain.parkages.click/relations
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-09-17
+logsource:
+  category: proxy
+detection:
+  selection_1:
+    cs-host|endswith:
+      - .ru
+      - .su
+      - .com
+    cs-host|re: '^[a-z0-9]{3,}\.[a-z0-9]{4,11}\.(ru|su|com)$'
+    cs-uri-stem|re: '^/[a-zA-Z0-9]{35,}$'
+    cs-uri-query|re: '^[a-zA-Z0-9]{25,}$'
+  selection_2:
+    cs-uri-stem:
+      - '/connectivity.html'
+    cs-uri-query|contains: '@'
+  condition: 1 of selection_*
+falsepositives:
+  - Very possible; investigate url to confirm
+level: medium

@@ -1,0 +1,21 @@
+title: Potential Data Exfiltration Using Cyberduck
+id: c2cc89c6-1503-481a-b013-306a5f1ce935
+status: test
+description: Detects the use of Cyberduck to upload data
+references:
+  - https://docs.duck.sh/cli
+author: NTT Security - Andreas Foureaux
+date: 2025-09-22
+logsource:
+  category: process_creation
+detection:
+  selection_command:
+    CommandLine|contains|all:
+      - 'duck'
+    CommandLine|contains:
+      - '--upload'
+      - '--copy'
+  condition: selection_command
+falsepositives:
+  - Legitimate use of the tool
+level: medium

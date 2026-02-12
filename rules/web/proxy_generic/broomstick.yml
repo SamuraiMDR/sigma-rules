@@ -1,0 +1,20 @@
+title: Broomstick POST request
+id: 299ad6d6-bce9-496d-ae6d-472f0b7360ef
+description: Detects POST request to /api/connectivity
+status: stable
+author: NTT Security - Robin Hellsten
+references:
+  - https://hunt.io/blog/a-simple-approach-to-discovering-oyster-backdoor-infrastructure
+  - https://www.threatdown.com/blog/rhysida-using-oyster-backdoor-to-deliver-ransomware
+  - 0a7fd836d36ed8e8e9aa7bc41fdc9242333e8469059dec8886b7d935f3651679
+date: 2024-07-26
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-uri: "/api/connectivity"
+    cs-method: "POST"
+  condition: selection
+falsepositives:
+  - POST requests to the same URL, but not from the ransomware
+level: high

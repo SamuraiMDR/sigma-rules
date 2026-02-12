@@ -1,0 +1,30 @@
+title: Microsoft Teams Phishing Call
+id: 60ca259a-3e0a-432e-b912-1951576862ec
+description: >-
+  TTPs observed in an Incident Response engagement, where a foreign user
+  initiates a Teams call and pretends to be from the internal IT help desk,
+  trying to coerce the user into installing a remote management tool that
+  grants them access to the computer.
+status: test
+author: NTT Security - Patrik Olson
+date: 2024-12-13
+logsource:
+  product: m365
+  service: teams
+detection:
+  selection_external_chat:
+    Workload|cased: MicrosoftTeams
+    Operation|cased: ChatCreated
+    ParticipantInfo.HasForeignTenantUsers: 'true'
+  selection_suspicious_name:
+    - Members.DisplayName|contains:
+      - 'Help Desk Manager'
+    - Members.DisplayName|re:
+      - '[^\x00-\x7F]{10,}' # look for 10+ (invisible) unicode characters in a row, used to hide email address from Teams notification
+  condition: all of selection_*
+falsepositives:
+  - Unknown
+tags:
+  - attack.initial-access
+  - attack.t1566.004
+level: critical

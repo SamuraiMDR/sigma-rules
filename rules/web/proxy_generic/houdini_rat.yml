@@ -1,0 +1,18 @@
+title: Houdini RAT
+id: dea7fa54-3fe1-487d-8a3e-aa99f633f3f6
+description: Rule to detect houdini RAT and WSH RAT
+status: stable
+author: NTT Security - Robin Hellsten
+date: 2024-04-18
+logsource:
+  category: proxy
+detection:
+  separator:
+    c-useragent|contains:
+      - "<|>"
+      - "|false"
+      - "|true"
+  condition: separator
+falsepositives:
+- Unknown
+level: medium

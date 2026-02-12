@@ -1,0 +1,39 @@
+title: Potential data exfiltration via curl
+id: 957aec95-cc0d-4b73-ba97-042b8293430e
+status: test
+description: Detects the use of curl to upload data
+references:
+  - https://curl.se/docs/manpage.html
+author: NTT Security - Andreas Foureaux
+date: 2025-11-12
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_image:
+    Image|endswith:
+      - curl
+      - curl.exe
+  selection_command:
+    CommandLine|contains:
+      - '--upload-file'
+      - '--data @'
+      - '--data-ascii @'
+      - '--data-binary @'
+      - '--data-urlencode @'
+      - '--header @'
+      - '--json @'
+      - ' -T '
+      - ' -H @'
+      - ' -d @'
+      - '=@'
+  filter_ip:
+    - DestinationIp|cidr:
+      - '10.0.0.0/8'
+      - '172.16.0.0/12'
+      - '192.168.0.0/16'
+      - '127.0.0.0/8'
+  condition: selection_image and selection_command and not filter_ip
+falsepositives:
+  - Legitimate use of curl
+level: medium
