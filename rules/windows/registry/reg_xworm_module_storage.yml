@@ -10,12 +10,12 @@ references:
 date: 2025-12-12
 modified: 2025-12-12
 logsource:
-  category: endpoint
+  product: windows
+  category: registry_set
 detection:
   selection:
-    registry_key|re: '(?i)Software\\[A-F0-9]{20}\\[A-F0-9]{64}$'
-    registry_value: 'Binary Data'
-    change_type: 'CREATE'
+    TargetObject|re: '(?i)Software\\[A-F0-9]{20}\\[A-F0-9]{64}$'
+    Details: 'Binary Data'
   condition: selection
 falsepositives:
 - Legitimate applications that so happen to make use of this pattern
