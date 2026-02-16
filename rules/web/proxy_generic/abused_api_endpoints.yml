@@ -4,7 +4,7 @@ description: Legitimate API services sometimes abused for C2 communication. Corr
 status: stable
 author: NTT Security - Patrik Olson, Axel Olsson
 date: '2023-08-17'
-modified: '2024-02-23'
+modified: '2026-02-16'
 references:
   - https://blog.eclecticiq.com/german-embassy-lure-likely-part-of-campaign-against-nato-aligned-ministries-of-foreign-affairs # Zulip
   - https://blog.cluster25.duskrise.com/2022/09/23/in-the-footsteps-of-the-fancy-bear-powerpoint-graphite/ # Microsoft Graph API
@@ -18,6 +18,8 @@ references:
   - https://blog.sekoia.io/apt28-leverages-multiple-phishing-techniques-to-target-ukrainian-civil-society/ # APT28 Pipedream
   - https://cloud.google.com/blog/topics/threat-intelligence/untangling-iran-apt42-operations/ # APT42 .glitch.me usage
   - https://securelist.com/cloudsorcerer-new-apt-cloud-actor/113056/ # Yandex, graph and dropbox
+  - https://cert.pl/uploads/docs/CERT_Polska_Energy_Sector_Incident_Report_2025.pdf # hooks.slack.com
+  - https://securelist.com/notepad-supply-chain-attack/118708/ # temp.sh
 logsource:
     category: proxy
 detection:
@@ -49,6 +51,11 @@ detection:
         - '/api/chat'
         - '/api/channels'
         - '/api/conversations'
+        service_hooks_slack:
+    http_method: 'POST'
+      url_host: 'hooks.slack.com'
+      uri_path|startswith: '/services/'
+      http_referer: ''
     service_discord:
       cs-method: 'POST'
       cs-host: 'discord.com'
@@ -102,6 +109,10 @@ detection:
       url_host|endswith: '.glitch.me'
       http_referer: ''
       http_method: 'POST'
+    service_temp_sh:
+      url_host: temp.sh
+      uri_path: /upload
+      http_method: POST
     service_vscode_tunnels:
       cs-host|endswith:
         - '.devtunnels.ms'
