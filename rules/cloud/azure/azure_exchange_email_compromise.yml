@@ -11,7 +11,7 @@ references:
     - https://expel.com/blog/seven-ways-to-spot-business-email-compromise-office-365/
 author: NTT Security - Ramine Etow
 date: 2024-03-25
-modified: 2024-04-19
+modified: 2026-03-31
 tags:
     - attack.collection
     - attack.t1114
@@ -78,6 +78,9 @@ detection:
             - Payroll
             - Password
             - Docusign
+        - Parameters.RecipientAddressContainsWords:
+            - '@'
+            - '.'
     condition: inbox_rule and 1 of suspicious_*
 fields:
     - Parameters.Name
@@ -85,6 +88,7 @@ fields:
     - Parameters.BodyContainsWords
     - Parameters.SubjectContainsWords
     - Parameters.SubjectOrBodyContainsWords
+    - Parameters.RecipientAddressContainsWords
 falsepositives:
     - Correlate with other email rules user might have created in the past.
 level: high
